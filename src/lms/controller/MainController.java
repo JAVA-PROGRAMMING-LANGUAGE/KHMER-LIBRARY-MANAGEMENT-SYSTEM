@@ -130,7 +130,7 @@ public class MainController implements Initializable {
         btnStatistic.setOnAction((e)->{
             hidePane();
             vbStatistic.setVisible(true);
-            new SlideInDown(vbStatistic).play();//
+            new SlideInDown(vbStatistic).play();
         });
     }
 
