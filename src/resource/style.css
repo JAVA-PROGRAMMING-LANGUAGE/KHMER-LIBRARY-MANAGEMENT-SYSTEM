@@ -1,0 +1,63 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Aug 14, 2018, 11:27:10 AM
+    Author     : SRUN VANNARA
+*/
+
+.table-row-cell{
+    -fx-font-size: 14px;
+    -fx-font-family:"Khmer Os";
+    -fx-text-background-color:#E3E3E3;
+    
+}
+.table-view{
+    -fx-font-size: 14px;
+    -fx-font-family:"kh System";
+    -fx-text-fill: #616161;
+    -fx-border-color:#E3E3E3;
+    /*-fx-background-radius: 5px;*/
+    /*-fx-border-radius: 5px;*/
+  
+
+}
+.table-view .column-header{
+    -fx-background-color: white;
+
+}
+.table-view:focused{
+    -fx-border-color:#E3E3E3;
+    -fx-background-insets:0;    
+  
+}
+
+.table-row-cell:selected{
+    -fx-background-color:#4c787e;
+    -fx-text-background-color:white;
+}
+
+.button{
+    -fx-cursor: hand;
+    -fx-background-color: white;
+}
+
+.button:hover {
+    -fx-background-color: #616161;
+    -fx-text-fill: white;
+}
+.button:pressed{
+    -fx-background-color: #e3e3e3;
+}
+
+.text-field{
+    -fx-text-fill: #616161;
+    -fx-border-color: #e3e3e3;
+    -fx-border-radius: 20px;
+    -fx-background-insets: 20px;
+    -fx-font-size: 14px;
+    -fx-font-family:"Kh System";
+    -fx-padding: 0 10 0 10;
+}
