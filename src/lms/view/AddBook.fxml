@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="745.0" style="-fx-background-color: white;" stylesheets="@../../resource/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lms.controller.AddBookController">
+   <children>
+      <TextField layoutX="407.0" layoutY="180.0" prefHeight="33.0" prefWidth="338.0" promptText="ស្វែងរកតាមរយៈកូដ/ISBN ឬចំណងជើង">
+         <font>
+            <Font name="Kh System" size="15.0" />
+         </font>
+      </TextField>
+      <Label style="-fx-text-fill: #616161;" text="កូដ/ISBN">
+         <font>
+            <Font name="Kh System" size="14.0" />
+         </font>
+      </Label>
+      <TextField layoutX="110.0" prefHeight="25.0" prefWidth="250.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <Label layoutX="408.0" layoutY="4.0" style="-fx-text-fill: #616161;" text="ចំណងជើង">
+         <font>
+            <Font name="Kh System" size="14.0" />
+         </font>
+      </Label>
+      <TextField layoutX="495.0" prefHeight="25.0" prefWidth="250.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <Label layoutY="45.0" style="-fx-text-fill: #616161;" text="ចំណងជើងរង">
+         <font>
+            <Font name="Kh System" size="14.0" />
+         </font>
+      </Label>
+      <TextField layoutX="110.0" layoutY="45.0" prefHeight="25.0" prefWidth="250.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <ComboBox fx:id="cboGender" layoutX="495.0" layoutY="45.0" prefWidth="250.0">
+         <padding>
+            <Insets bottom="-5.0" top="-5.0" />
+         </padding></ComboBox>
+      <Label layoutX="408.0" layoutY="45.0" style="-fx-text-fill: #616161;" text="ប្រភេទ">
+         <font>
+            <Font name="Kh System" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutY="90.0" style="-fx-text-fill: #616161;" text="អ្នកនិពន្ធ">
+         <font>
+            <Font name="Kh System" size="14.0" />
+         </font>
+      </Label>
+      <TextField layoutX="110.0" layoutY="90.0" prefHeight="25.0" prefWidth="250.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <Label layoutX="413.0" layoutY="90.0" style="-fx-text-fill: #616161;" text="ឆ្នាំបោះពុម្ព">
+         <font>
+            <Font name="Kh System" size="14.0" />
+         </font>
+      </Label>
+      <TextField layoutX="495.0" layoutY="90.0" prefHeight="25.0" prefWidth="250.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <Label layoutY="135.0" style="-fx-text-fill: #616161;" text="ចំនួនទាំងអស់">
+         <font>
+            <Font name="Kh System" size="14.0" />
+         </font>
+      </Label>
+      <TextField layoutX="110.0" layoutY="135.0" prefHeight="25.0" prefWidth="250.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <Label layoutX="408.0" layoutY="135.0" style="-fx-text-fill: #616161;" text="ផ្សេងៗ">
+         <font>
+            <Font name="Kh System" size="14.0" />
+         </font>
+      </Label>
+      <TextField layoutX="495.0" layoutY="135.0" prefHeight="25.0" prefWidth="250.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <Button alignment="CENTER" layoutX="110.0" layoutY="180.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="75.0" text="រក្សាទុក">
+         <font>
+            <Font name="Kh System" size="14.0" />
+         </font>
+         <padding>
+            <Insets bottom="-1.0" top="-1.0" />
+         </padding>
+      </Button>
+      <Button alignment="CENTER" layoutX="198.0" layoutY="180.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="75.0" text="ថ្មី">
+         <font>
+            <Font name="Kh System" size="14.0" />
+         </font>
+         <padding>
+            <Insets bottom="-1.0" top="-1.0" />
+         </padding>
+      </Button>
+      <Button alignment="CENTER" layoutX="285.0" layoutY="180.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="75.0" text="លុប">
+         <font>
+            <Font name="Kh System" size="14.0" />
+         </font>
+         <padding>
+            <Insets bottom="-1.0" top="-1.0" />
+         </padding>
+      </Button>
+      
+      <TableView layoutY="230.0" prefHeight="320.0" prefWidth="745.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="កូដ/ISBN" />
+          <TableColumn prefWidth="75.0" text="ចំណងជើង" />
+            <TableColumn prefWidth="75.0" text="ចំណងជើងរង" />
+            <TableColumn prefWidth="75.0" text="ប្រភេទ" />
+            <TableColumn prefWidth="75.0" text="អ្នកនិពន្ធ" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <MaterialIconView fill="#ffaa00" glyphName="SEARCH" layoutX="713.0" layoutY="209.0" size="25">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </MaterialIconView>
+   </children>
+</AnchorPane>

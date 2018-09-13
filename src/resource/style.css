@@ -10,13 +10,13 @@ and open the template in the editor.
 
 .table-row-cell{
     -fx-font-size: 14px;
-    -fx-font-family:"Khmer Os";
-    -fx-text-background-color:#E3E3E3;
+    -fx-font-family:"Kh System";
+    -fx-text-background-color:black;
     
 }
 .table-view{
     -fx-font-size: 14px;
-    -fx-font-family:"kh System";
+    -fx-font-family:"Kh System";
     -fx-text-fill: #616161;
     -fx-border-color:#E3E3E3;
     /*-fx-background-radius: 5px;*/
@@ -42,11 +42,17 @@ and open the template in the editor.
 .button{
     -fx-cursor: hand;
     -fx-background-color: white;
+     -fx-font-size: 14px;
+    -fx-font-family:"Kh System";
+    -fx-border-color: #e3e3e3;
+    -fx-padding: -2 0 3 0;
+    
 }
 
 .button:hover {
     -fx-background-color: #616161;
     -fx-text-fill: white;
+    -fx-background-insets: 0px;
 }
 .button:pressed{
     -fx-background-color: #e3e3e3;
@@ -59,5 +65,19 @@ and open the template in the editor.
     -fx-background-insets: 20px;
     -fx-font-size: 14px;
     -fx-font-family:"Kh System";
-    -fx-padding: 0 10 0 10;
+    -fx-padding: 0 2 2 10;
+}
+
+.combo-box {
+    -fx-text-fill: #616161;
+    -fx-border-color: #e3e3e3;
+    -fx-border-radius: 20px;
+    -fx-background-insets: 21px;
+    -fx-font-size: 14px;
+    -fx-font-family:"Kh System";
+}
+.label{
+    -fx-font-size: 14px;
+    -fx-font-family:"Kh System";
+    -fx-text-fill: #616161;
 }

@@ -12,100 +12,102 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="527.0" prefWidth="745.0" style="-fx-background-color: white;" stylesheets="@../../resource/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lms.controller.RegisterController">
+<AnchorPane id="AnchorPane" style="-fx-background-color: white;" stylesheets="@../../resource/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lms.controller.RegisterController">
    <children>
-      <TextField layoutX="407.0" layoutY="229.0" prefHeight="33.0" prefWidth="338.0" promptText="ស្វែងរក">
+      <TextField fx:id="txtSearch" layoutX="407.0" layoutY="250.0" prefHeight="33.0" prefWidth="338.0" promptText="ស្វែងរកតាមរយៈលេខសម្គាល់ ឬឈ្មោះ">
          <font>
             <Font name="Kh System" size="15.0" />
          </font>
+         <padding>
+            <Insets bottom="2.0" left="10.0" />
+         </padding>
       </TextField>
-      <Label style="-fx-text-fill: #616161;" text="លេខសម្គាល់">
+      <Label text="លេខសម្គាល់">
          <font>
-            <Font name="Kh System" size="15.0" />
+            <Font name="Kh System" size="14.0" />
          </font>
       </Label>
-      <TextField layoutX="110.0" prefHeight="25.0" prefWidth="250.0">
+      <TextField fx:id="txtId" editable="false" layoutX="110.0" prefHeight="25.0" prefWidth="250.0">
          <font>
             <Font size="15.0" />
          </font>
       </TextField>
-      <Label layoutX="408.0" layoutY="4.0" style="-fx-text-fill: #616161;" text="ឈ្មោះ">
-         <font>
-            <Font name="Kh System" size="15.0" />
-         </font>
-      </Label>
-      <TextField layoutX="495.0" prefHeight="25.0" prefWidth="250.0">
+      <Label layoutX="408.0" text="ឈ្មោះ" />
+      <TextField fx:id="txtName" layoutX="495.0" prefHeight="25.0" prefWidth="250.0">
          <font>
             <Font size="15.0" />
          </font>
       </TextField>
-      <Label layoutY="45.0" style="-fx-text-fill: #616161;" text="ជាអក្សរឡាតាំង">
+      <Label layoutY="50.0" text="ជាអក្សរឡាតាំង">
          <font>
-            <Font name="Kh System" size="15.0" />
+            <Font name="Kh System" size="14.0" />
          </font>
       </Label>
-      <TextField layoutX="110.0" layoutY="45.0" prefHeight="25.0" prefWidth="250.0">
+      <TextField fx:id="txtLatin" layoutX="110.0" layoutY="50.0" prefHeight="25.0" prefWidth="250.0">
          <font>
             <Font size="15.0" />
          </font>
       </TextField>
-      <Label layoutX="408.0" layoutY="45.0" style="-fx-text-fill: #616161;" text="ភេទ">
+      <ComboBox fx:id="cboGender" layoutX="495.0" layoutY="50.0" prefWidth="250.0">
+         <padding>
+            <Insets bottom="-5.0" top="-5.0" />
+         </padding></ComboBox>
+      <Label layoutX="408.0" layoutY="50.0" text="ភេទ">
          <font>
-            <Font name="Kh System" size="15.0" />
+            <Font name="Kh System" size="14.0" />
          </font>
       </Label>
-      <ComboBox layoutX="495.0" layoutY="45.0" prefHeight="33.0" prefWidth="250.0" style="-fx-background-insets: 20; -fx-border-color: #e3e3e3; -fx-border-radius: 20;" />
-      <Label layoutY="90.0" style="-fx-text-fill: #616161;" text="ថ្ងៃខែឆ្នាំកំណើត">
+      <Label layoutY="100.0" text="ថ្ងៃខែឆ្នាំកំណើត">
          <font>
-            <Font name="Kh System" size="15.0" />
+            <Font name="Kh System" size="14.0" />
          </font>
       </Label>
-      <TextField layoutX="110.0" layoutY="90.0" prefHeight="25.0" prefWidth="250.0">
+      <TextField fx:id="txtBirth" layoutX="110.0" layoutY="100.0" prefHeight="25.0" prefWidth="250.0">
          <font>
             <Font size="15.0" />
          </font>
       </TextField>
-      <Label layoutX="413.0" layoutY="90.0" style="-fx-text-fill: #616161;" text="រស់នៅភូមិ">
+      <Label layoutX="413.0" layoutY="100.0" text="រស់នៅភូមិ">
          <font>
-            <Font name="Kh System" size="15.0" />
+            <Font name="Kh System" size="14.0" />
          </font>
       </Label>
-      <TextField layoutX="495.0" layoutY="90.0" prefHeight="25.0" prefWidth="250.0">
+      <TextField fx:id="txtVillage" layoutX="495.0" layoutY="100.0" prefHeight="25.0" prefWidth="250.0">
          <font>
             <Font size="15.0" />
          </font>
       </TextField>
-      <Label layoutY="135.0" style="-fx-text-fill: #616161;" text="ឃុំ">
+      <Label layoutY="150.0" text="ឃុំ">
          <font>
-            <Font name="Kh System" size="15.0" />
+            <Font name="Kh System" size="14.0" />
          </font>
       </Label>
-      <TextField layoutX="110.0" layoutY="135.0" prefHeight="25.0" prefWidth="250.0">
+      <TextField fx:id="txtCommune" layoutX="110.0" layoutY="150.0" prefHeight="25.0" prefWidth="250.0">
          <font>
             <Font size="15.0" />
          </font>
       </TextField>
-      <Label layoutX="408.0" layoutY="135.0" style="-fx-text-fill: #616161;" text="ស្រុក">
+      <Label layoutX="408.0" layoutY="150.0" text="ស្រុក">
          <font>
-            <Font name="Kh System" size="15.0" />
+            <Font name="Kh System" size="14.0" />
          </font>
       </Label>
-      <TextField layoutX="495.0" layoutY="135.0" prefHeight="25.0" prefWidth="250.0">
+      <TextField fx:id="txtDistrict" layoutX="495.0" layoutY="150.0" prefHeight="25.0" prefWidth="250.0">
          <font>
             <Font size="15.0" />
          </font>
       </TextField>
-      <Label layoutY="180.0" style="-fx-text-fill: #616161;" text="ខេត្ត">
+      <Label layoutY="200.0" text="ខេត្ត">
          <font>
-            <Font name="Kh System" size="15.0" />
+            <Font name="Kh System" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="txtProvince" layoutX="110.0" layoutY="180.0" prefHeight="25.0" prefWidth="250.0">
+      <TextField fx:id="txtProvince" layoutX="110.0" layoutY="200.0" prefHeight="25.0" prefWidth="250.0">
          <font>
             <Font size="15.0" />
          </font>
       </TextField>
-      <TextField fx:id="txtPhone" layoutX="495.0" layoutY="180.0" prefHeight="25.0" prefWidth="250.0">
+      <TextField fx:id="txtPhone" layoutX="495.0" layoutY="200.0" prefHeight="25.0" prefWidth="250.0">
          <font>
             <Font name="Kh System" size="15.0" />
          </font>
@@ -113,40 +115,55 @@
             <Insets left="10.0" right="10.0" />
          </padding>
       </TextField>
-      <Label layoutX="408.0" layoutY="180.0" style="-fx-text-fill: #616161;" text="លេខទូរស័ព្ទ">
+      <Label layoutX="408.0" layoutY="200.0" text="លេខទូរស័ព្ទ">
          <font>
-            <Font name="Kh System" size="15.0" />
+            <Font name="Kh System" size="14.0" />
          </font>
       </Label>
-      <Button alignment="CENTER" layoutY="225.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="103.0" style="-fx-border-color: #e3e3e3; -fx-border-radius: 0; -fx-background-insets: 1; -fx-border-radius: 5;" text="រក្សាទុក">
+      <Button fx:id="btnSave" alignment="CENTER" layoutX="110.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#clickSave" prefHeight="33.0" prefWidth="75.0" text="រក្សាទុក">
          <font>
             <Font name="Kh System" size="14.0" />
          </font>
+         <padding>
+            <Insets bottom="3.0" top="-2.0" />
+         </padding>
       </Button>
-      <Button alignment="CENTER" layoutX="129.0" layoutY="225.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="103.0" style="-fx-border-color: #e3e3e3; -fx-border-radius: 0; -fx-background-insets: 1; -fx-border-radius: 5;" text="ថ្មី">
+      <Button fx:id="btnNew" alignment="CENTER" layoutX="198.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#clickNew" prefHeight="33.0" prefWidth="75.0" text="ថ្មី">
          <font>
             <Font name="Kh System" size="14.0" />
          </font>
+         <padding>
+            <Insets bottom="3.0" top="-2.0" />
+         </padding>
       </Button>
-      <Button alignment="CENTER" layoutX="257.0" layoutY="225.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="103.0" style="-fx-border-color: #e3e3e3; -fx-border-radius: 0; -fx-background-insets: 1; -fx-border-radius: 5;" text="លុប">
+      <Button fx:id="btnDelete" alignment="CENTER" layoutX="285.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#clickDelete" prefHeight="33.0" prefWidth="75.0" text="លុប">
          <font>
             <Font name="Kh System" size="14.0" />
          </font>
+         <padding>
+            <Insets bottom="3.0" top="-2.0" />
+         </padding>
       </Button>
       
-      <TableView layoutY="280.0" prefHeight="272.0" prefWidth="745.0">
+      <TableView fx:id="tblMember" layoutY="300.0" prefHeight="250.0" prefWidth="745.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="លេខសម្គាល់" />
-          <TableColumn prefWidth="75.0" text="ឈ្មោះ" />
-            <TableColumn prefWidth="75.0" text="ជាអក្សរឡាតាំង" />
-            <TableColumn prefWidth="75.0" text="ភេទ" />
-            <TableColumn prefWidth="75.0" text="លេខទូរស័ព្ទ" />
+          <TableColumn fx:id="cId" prefWidth="75.0" text="លេខសម្គាល់" />
+          <TableColumn fx:id="cName" prefWidth="75.0" text="ឈ្មោះ" />
+            <TableColumn fx:id="cLatin" prefWidth="75.0" text="ជាអក្សរឡាតាំង" />
+            <TableColumn fx:id="cGender" prefWidth="75.0" text="ភេទ" />
+            <TableColumn fx:id="cBirth" prefWidth="75.0" text="ថ្ងៃខែឆ្នាំកំណើត" />
+            <TableColumn fx:id="cVillage" prefWidth="75.0" text="ភូមិ" />
+            <TableColumn fx:id="cCommune" prefWidth="75.0" text="ឃុំ" />
+            <TableColumn fx:id="cDistrict" prefWidth="75.0" resizable="false" text="ស្រុក" />
+            <TableColumn fx:id="cProvince" prefWidth="75.0" text="ខេត្ត" />
+            <TableColumn fx:id="cPhone" prefWidth="75.0" text="លេខទូរស័ព្ទ" />
+            
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <MaterialIconView fill="#ff7070" glyphName="BACKSPACE" layoutX="716.0" layoutY="254.0" size="15">
+      <MaterialIconView fx:id="btnSearch" fill="#ffaa00" glyphName="SEARCH" layoutX="711.0" layoutY="279.0" size="25">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

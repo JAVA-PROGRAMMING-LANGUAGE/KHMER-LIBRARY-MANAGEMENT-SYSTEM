@@ -5,14 +5,7 @@
  */
 package lms.controller;
 
-import animatefx.animation.FadeIn;
-import animatefx.animation.FadeInUp;
-import animatefx.animation.JackInTheBox;
 import animatefx.animation.RollIn;
-import animatefx.animation.RotateIn;
-import animatefx.animation.Shake;
-import animatefx.animation.SlideInDown;
-import animatefx.animation.ZoomIn;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -23,9 +16,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -59,6 +52,13 @@ public class MainController implements Initializable {
     private Button btnMaterial;
     @FXML
     private Button btnStatistic;
+    @FXML
+    private Button btnAbout;
+    @FXML
+    private VBox vbAbout;
+    @FXML
+    private StackPane mainPane;
+    public static StackPane stackPane;
 
     //private AnchorPane mainPane;
     /**
@@ -66,6 +66,7 @@ public class MainController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        this.stackPane = mainPane;
         loadForm();
         clickMenu();
 
@@ -78,8 +79,20 @@ public class MainController implements Initializable {
 
     private void loadForm() {
         try {
-            AnchorPane register = FXMLLoader.load(getClass().getResource("/lms/view/Register.fxml"));
-            vbRegisterMember.getChildren().add(register);
+            AnchorPane registerMember = FXMLLoader.load(getClass().getResource("/lms/view/Register.fxml"));
+            vbRegisterMember.getChildren().add(registerMember);
+            
+            AnchorPane issueBook = FXMLLoader.load(getClass().getResource("/lms/view/IssueBook.fxml"));
+            vbIssueBook.getChildren().add(issueBook);
+            
+            AnchorPane returnBook = FXMLLoader.load(getClass().getResource("/lms/view/ReturnBook.fxml"));
+            vbRetrunBook.getChildren().add(returnBook);
+            
+            AnchorPane addBook = FXMLLoader.load(getClass().getResource("/lms/view/AddBook.fxml"));
+            vbAddBook.getChildren().add(addBook);
+            
+            AnchorPane addMaterial = FXMLLoader.load(getClass().getResource("/lms/view/AddMaterial.fxml"));
+            vbMaterial.getChildren().add(addMaterial);
 
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
@@ -106,31 +119,31 @@ public class MainController implements Initializable {
         btnIssueBook.setOnAction((e) -> {
             hidePane();
             vbIssueBook.setVisible(true);
-            new Shake(vbIssueBook).play();
+            new RollIn(vbIssueBook).play();
         });
         
         btnReturnBook.setOnAction((e) -> {
             hidePane();
             vbRetrunBook.setVisible(true);
-            new FadeInUp(vbRetrunBook).play();
+            new RollIn(vbRetrunBook).play();
         });
         
         btnAddBook.setOnAction((e)->{
             hidePane();
             vbAddBook.setVisible(true);
-            new ZoomIn(vbAddBook).play();
+            new RollIn(vbAddBook).play();
         });
         
         btnMaterial.setOnAction((e)->{
             hidePane();
             vbMaterial.setVisible(true);
-            new RotateIn(vbMaterial).play();
+            new RollIn(vbMaterial).play();
         });
         
         btnStatistic.setOnAction((e)->{
             hidePane();
             vbStatistic.setVisible(true);
-            new SlideInDown(vbStatistic).play();
+            new RollIn(vbStatistic).play();
         });
     }
 
