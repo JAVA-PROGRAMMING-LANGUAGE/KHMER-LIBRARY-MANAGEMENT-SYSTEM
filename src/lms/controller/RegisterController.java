@@ -29,6 +29,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import lms.DbConnection;
+import lms.MyDialog;
 import lms.pojo.MemberPojo;
 
 /**
@@ -94,16 +95,17 @@ public class RegisterController implements Initializable {
     private TableColumn<MemberPojo, String> cDistrict;
     @FXML
     private TableColumn<MemberPojo, String> cProvince;
+    @FXML
+    private MaterialIconView btnSearch1;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
         cboGender.getItems().addAll("ប្រុស", "ស្រី");
-        DbConnection dbConnection = new DbConnection();
-        conn = dbConnection.connect();
+        //Connect to database
+        conn = DbConnection.connect();
         initTable();
         loadMember();
         getSelectedRowData();
@@ -123,28 +125,32 @@ public class RegisterController implements Initializable {
             return false;
         }
     }
-
-    private void showInfoDialog(String head, String body) {
-        Button close = new Button("បិទ");
-        close.setStyle("-fx-cursor:hand; -fx-font-size: 15px; -fx-font-family: 'Kh System' ; -fx-font-color:red ; -fx-border-color:white; -fx-background-color:white ; -fx-text-fill:red");
+    private void showUpdateDialog(String head, String body) {
+        Button close = new Button("ទេ");
+        Button ok = new Button("បាទ");
+        close.setStyle("-fx-cursor:hand ; -fx-font-color:red ; -fx-border-color:white; -fx-background-color:white");
+        ok.setStyle("-fx-cursor:hand; -fx-font-color:red ; -fx-border-color:white; -fx-background-color:white ; -fx-text-fill:red");
         JFXDialogLayout content = new JFXDialogLayout();
         JFXDialog dialog = new JFXDialog(MainController.stackPane, content, JFXDialog.DialogTransition.CENTER, true);
         content.setHeading(new Text(head));
         content.setBody(new Text(body));
         content.setStyle("-fx-font-size: 15; -fx-font-family: 'Kh System'");
-        content.setActions(close);
+        content.setActions(close, ok);
         close.setOnAction(e -> {
+            dialog.close();
+        });
+        ok.setOnAction(e -> {
+            update();
             dialog.close();
         });
         dialog.show();
     }
-
     /**
      * Load all members.
      */
     private void loadMember() {
         ObservableList<MemberPojo> memberList = FXCollections.observableArrayList();
-        String sql = "SELECT * FROM tb_member";
+        String sql = "SELECT * FROM tb_member ORDER BY id  DESC LIMIT 200";
         try {
             pst = conn.prepareStatement(sql);
             rs = pst.executeQuery();
@@ -152,6 +158,7 @@ public class RegisterController implements Initializable {
                 memberList.add(new MemberPojo(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10)));
             }
             tblMember.getItems().setAll(memberList);
+            clearInput();
         } catch (SQLException ex) {
             Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -178,6 +185,7 @@ public class RegisterController implements Initializable {
                 txtDistrict.setText(memberDto.getDistrict());
                 txtProvince.setText(memberDto.getProvince());
                 txtPhone.setText(memberDto.getPhone());
+                btnSave.setText("កែប្រែ");
             }
         });
     }
@@ -198,17 +206,191 @@ public class RegisterController implements Initializable {
     @FXML
     private void clickSave(MouseEvent event) {
         if (!isEmptyField()) {
-
+            if (btnSave.getText().equals("រក្សាទុក")) {
+                save();
+            } else {
+                showUpdateDialog("កែប្រែទិន្នន័យអ្នកខ្ចី!", "តើអ្នកពិតជាចង់កែប្រែមែនទេ?");
+            }
         } else {
-            showInfoDialog("ការរក្សាទុកមិនបានជោគជ័យ", "សូមបំពេញរាល់ចន្លោះទាំងអស់ដើម្បីអាចរក្សាទុកបាន។");
+            new MyDialog().showInfoDialog("ការរក្សាទុកមិនបានជោគជ័យ!", "សូមបំពេញចន្លោះទាំងអស់ដើម្បីអាចរក្សាទុកបាន។");
         }
     }
 
     @FXML
     private void clickNew(MouseEvent event) {
+        clearInput();
+    }
+    
+    private void clearInput() {
+        txtId.setText("");
+        txtName.setText("");
+        txtLatin.setText("");
+        cboGender.getSelectionModel().clearSelection();
+        txtBirth.setText("");
+        txtVillage.setText("");
+        txtCommune.setText("");
+        txtDistrict.setText("");
+        txtProvince.setText("");
+        txtPhone.setText("");
+        btnSave.setText("រក្សាទុក");
+        tblMember.getSelectionModel().clearSelection();
+
     }
 
     @FXML
     private void clickDelete(MouseEvent event) {
+        showDeleteDialog("លុបឈ្មោះអ្នកខ្ចី!", "តើអ្នកពិតជាចង់លុបមែនទេ?");
     }
+
+    private void showDeleteDialog(String head, String body) {
+        int row = tblMember.getSelectionModel().getSelectedIndex();
+        if (row < 0) {
+            new MyDialog().showInfoDialog("ការលុបមិនបានជោគជ័យ!", "សូមជ្រើសរើសអ្នកខ្ចីដែលចង់លុបពីក្នុងតារាងរួចចុចប៊ូតុងលុប។");
+        } else {
+            Button close = new Button("ទេ");
+            Button ok = new Button("បាទ");
+            close.setStyle("-fx-cursor:hand ; -fx-font-color:red ; -fx-border-color:white; -fx-background-color:white");
+            ok.setStyle("-fx-cursor:hand; -fx-font-color:red ; -fx-border-color:white; -fx-background-color:white ; -fx-text-fill:red");
+            JFXDialogLayout content = new JFXDialogLayout();
+            JFXDialog dialog = new JFXDialog(MainController.stackPane, content, JFXDialog.DialogTransition.CENTER, true);
+            content.setHeading(new Text(head));
+            content.setBody(new Text(body));
+            content.setStyle("-fx-font-size: 15; -fx-font-family: 'Kh System'");
+            content.setActions(close, ok);
+            close.setOnAction(e -> {
+                dialog.close();
+            });
+            ok.setOnAction(e -> {
+                delete();
+                dialog.close();
+            });
+            dialog.show();
+
+        }
+    }
+    private void delete() {
+        try {
+            String sql = "DELETE FROM tb_member WHERE id=?";
+            pst = conn.prepareStatement(sql);
+            pst.setInt(1, Integer.parseInt(txtId.getText()));
+            pst.executeUpdate();
+            clearInput();
+            loadMember();
+        } catch (SQLException ex) {
+            Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                pst.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    private void update() {
+        try {
+            String sql = "UPDATE tb_member SET name=?, latin=?, gender=?, bd=?, village=?, commune=?, district=?, province=?, phone=? WHERE id=?";
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, txtName.getText().trim());
+            pst.setString(2, txtLatin.getText().trim().toUpperCase());
+            pst.setString(3, cboGender.getSelectionModel().getSelectedItem());
+            pst.setString(4, txtBirth.getText().trim());
+            pst.setString(5, txtVillage.getText().trim());
+            pst.setString(6, txtCommune.getText().trim());
+            pst.setString(7, txtDistrict.getText().trim());
+            pst.setString(8, txtProvince.getText().trim());
+            pst.setString(9, txtPhone.getText().trim());
+            pst.setInt(10, Integer.parseInt(txtId.getText()));
+            pst.executeUpdate();
+            loadMember();
+        } catch (SQLException ex) {
+            Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                pst.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    private void save() {
+        try {
+            String sql = "INSERT INTO tb_member(name, latin, gender, bd, village, commune, district, province, phone) values(?,?,?,?,?,?,?,?,?)";
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, txtName.getText().trim());
+            pst.setString(2, txtLatin.getText().trim());
+            pst.setString(3, cboGender.getSelectionModel().getSelectedItem());
+            pst.setString(4, txtBirth.getText().trim());
+            pst.setString(5, txtVillage.getText().trim());
+            pst.setString(6, txtCommune.getText().trim());
+            pst.setString(7, txtDistrict.getText().trim());
+            pst.setString(8, txtProvince.getText().trim());
+            pst.setString(9, txtPhone.getText().trim());
+            pst.executeUpdate();
+            loadMember();
+        } catch (SQLException ex) {
+            Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                pst.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    @FXML
+    private void clickClearSearch(MouseEvent event) {
+        txtSearch.setText("");
+        loadMember();
+    }
+
+    /**
+     *
+     * Convert String to integer
+     */
+    private Boolean parseInt(String value) {
+        try {
+            Integer.parseInt(value);
+            return true;
+        } catch (NumberFormatException ex) {
+            return false;
+        }
+    }
+
+    @FXML
+    private void clickSearch(MouseEvent event) {
+        clearInput();
+        if (!txtSearch.getText().isEmpty()) {
+            ObservableList<MemberPojo> memberList = FXCollections.observableArrayList();
+            String sql = "SELECT * FROM tb_member WHERE id=?"
+                    + "UNION SELECT * FROM tb_member WHERE name LIKE ?"
+                    + "UNION SELECT * FROM tb_member WHERE latin LIKE ?";
+            try {
+                pst = conn.prepareStatement(sql);
+                if (parseInt(txtSearch.getText().trim())) {
+                    pst.setInt(1, Integer.parseInt(txtSearch.getText().trim()));
+                } else {
+                    pst.setInt(1, 0);
+                }
+                pst.setString(2, txtSearch.getText().trim() + "%");
+                pst.setString(3, txtSearch.getText().trim().toUpperCase() + "%");
+                rs = pst.executeQuery();
+                while (rs.next()) {
+                    memberList.add(new MemberPojo(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10)));
+                }
+                tblMember.getItems().setAll(memberList);
+            } catch (SQLException ex) {
+                Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                try {
+                    rs.close();
+                    pst.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
+
 }

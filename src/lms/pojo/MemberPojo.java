@@ -10,7 +10,7 @@ package lms.pojo;
  * @author SRUN VANNARA
  */
 public class MemberPojo {
-    private String id, name, latin, gender, bd, village, commune, district, province, phone;
+    private String id, name, latin, gender, bd, village, commune, district, province, phone, lateReturn;
 
     public MemberPojo(String id, String name, String latin, String gender, String bd, String village, String commune, String district, String province, String phone) {
         this.id = id;
@@ -31,6 +31,15 @@ public class MemberPojo {
         this.latin = latin;
         this.gender = gender;
         this.phone = phone;
+    }
+
+    public MemberPojo(String id, String name, String latin, String gender, String phone, String lateReturn) {
+        this.id = id;
+        this.name = name;
+        this.latin = latin;
+        this.gender = gender;
+        this.phone = phone;
+        this.lateReturn = lateReturn;
     }
 
     /**
@@ -173,6 +182,13 @@ public class MemberPojo {
         this.phone = phone;
     }
 
+    public String getLateReturn() {
+        return lateReturn;
+    }
+
+    public void setLateReturn(String lateReturn) {
+        this.lateReturn = lateReturn;
+    }
 
     
 }

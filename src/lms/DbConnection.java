@@ -5,6 +5,7 @@
  */
 package lms;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
@@ -13,18 +14,17 @@ import java.sql.SQLException;
  * @author SRUN VANNARA
  */
 public class DbConnection {
-    private final String url="jdbc:postgresql://localhost/postgres";
-        private final String user="postgres";
-        private final String pwd="8899";
+    private static String url = "jdbc:postgresql://localhost/postgres";
+    private static String user = "postgres";
+    private static String pwd = "8899";
         
-        public java.sql.Connection connect(){
-            java.sql.Connection conn=null;
+    public static Connection connect() {
+        Connection conn = null;
             try {
-                conn=DriverManager.getConnection(url, user, pwd);
-                //System.out.println("Connected");
+                conn = DriverManager.getConnection(url, user, pwd);
             } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-            }
+                new MyDialog().showInfoDialog("មានបញ្ហា!", ex.getMessage());
+        }
             return conn;
         }
     

@@ -14,7 +14,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="745.0" style="-fx-background-color: white;" stylesheets="@../../resource/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lms.controller.AddBookController">
    <children>
-      <TextField layoutX="407.0" layoutY="180.0" prefHeight="33.0" prefWidth="338.0" promptText="ស្វែងរកតាមរយៈកូដ/ISBN ឬចំណងជើង">
+      <TextField fx:id="txtSearch" layoutX="407.0" layoutY="180.0" prefHeight="33.0" prefWidth="338.0" promptText="ស្វែងរកតាមរយៈកូដ/ISBN ឬចំណងជើង" styleClass="text-search">
          <font>
             <Font name="Kh System" size="15.0" />
          </font>
@@ -24,7 +24,7 @@
             <Font name="Kh System" size="14.0" />
          </font>
       </Label>
-      <TextField layoutX="110.0" prefHeight="25.0" prefWidth="250.0">
+      <TextField fx:id="txtId" layoutX="110.0" onKeyPressed="#idTextChange" prefHeight="25.0" prefWidth="250.0">
          <font>
             <Font size="15.0" />
          </font>
@@ -34,7 +34,7 @@
             <Font name="Kh System" size="14.0" />
          </font>
       </Label>
-      <TextField layoutX="495.0" prefHeight="25.0" prefWidth="250.0">
+      <TextField fx:id="txtTitle" layoutX="495.0" prefHeight="25.0" prefWidth="250.0">
          <font>
             <Font size="15.0" />
          </font>
@@ -44,12 +44,12 @@
             <Font name="Kh System" size="14.0" />
          </font>
       </Label>
-      <TextField layoutX="110.0" layoutY="45.0" prefHeight="25.0" prefWidth="250.0">
+      <TextField fx:id="txtSubTitle" layoutX="110.0" layoutY="45.0" prefHeight="25.0" prefWidth="250.0">
          <font>
             <Font size="15.0" />
          </font>
       </TextField>
-      <ComboBox fx:id="cboGender" layoutX="495.0" layoutY="45.0" prefWidth="250.0">
+      <ComboBox fx:id="cboCategory" layoutX="495.0" layoutY="45.0" prefWidth="250.0">
          <padding>
             <Insets bottom="-5.0" top="-5.0" />
          </padding></ComboBox>
@@ -63,7 +63,7 @@
             <Font name="Kh System" size="14.0" />
          </font>
       </Label>
-      <TextField layoutX="110.0" layoutY="90.0" prefHeight="25.0" prefWidth="250.0">
+      <TextField fx:id="txtAuthor" layoutX="110.0" layoutY="90.0" prefHeight="25.0" prefWidth="250.0">
          <font>
             <Font size="15.0" />
          </font>
@@ -73,7 +73,7 @@
             <Font name="Kh System" size="14.0" />
          </font>
       </Label>
-      <TextField layoutX="495.0" layoutY="90.0" prefHeight="25.0" prefWidth="250.0">
+      <TextField fx:id="txtPrintYear" layoutX="495.0" layoutY="90.0" prefHeight="25.0" prefWidth="250.0">
          <font>
             <Font size="15.0" />
          </font>
@@ -83,7 +83,7 @@
             <Font name="Kh System" size="14.0" />
          </font>
       </Label>
-      <TextField layoutX="110.0" layoutY="135.0" prefHeight="25.0" prefWidth="250.0">
+      <TextField fx:id="txtNumBook" layoutX="110.0" layoutY="135.0" prefHeight="25.0" prefWidth="250.0">
          <font>
             <Font size="15.0" />
          </font>
@@ -93,12 +93,12 @@
             <Font name="Kh System" size="14.0" />
          </font>
       </Label>
-      <TextField layoutX="495.0" layoutY="135.0" prefHeight="25.0" prefWidth="250.0">
+      <TextField fx:id="txtOther" layoutX="495.0" layoutY="135.0" prefHeight="25.0" prefWidth="250.0">
          <font>
             <Font size="15.0" />
          </font>
       </TextField>
-      <Button alignment="CENTER" layoutX="110.0" layoutY="180.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="75.0" text="រក្សាទុក">
+      <Button fx:id="btnSave" alignment="CENTER" layoutX="110.0" layoutY="180.0" mnemonicParsing="false" onMouseClicked="#clickSave" prefHeight="33.0" prefWidth="75.0" text="រក្សាទុក">
          <font>
             <Font name="Kh System" size="14.0" />
          </font>
@@ -106,7 +106,7 @@
             <Insets bottom="-1.0" top="-1.0" />
          </padding>
       </Button>
-      <Button alignment="CENTER" layoutX="198.0" layoutY="180.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="75.0" text="ថ្មី">
+      <Button fx:id="btnNew" alignment="CENTER" layoutX="198.0" layoutY="180.0" mnemonicParsing="false" onMouseClicked="#clickNew" prefHeight="33.0" prefWidth="75.0" text="ថ្មី">
          <font>
             <Font name="Kh System" size="14.0" />
          </font>
@@ -114,7 +114,7 @@
             <Insets bottom="-1.0" top="-1.0" />
          </padding>
       </Button>
-      <Button alignment="CENTER" layoutX="285.0" layoutY="180.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="75.0" text="លុប">
+      <Button fx:id="btnDelete" alignment="CENTER" layoutX="285.0" layoutY="180.0" mnemonicParsing="false" onMouseClicked="#clickDelete" prefHeight="33.0" prefWidth="75.0" text="លុប">
          <font>
             <Font name="Kh System" size="14.0" />
          </font>
@@ -123,19 +123,27 @@
          </padding>
       </Button>
       
-      <TableView layoutY="230.0" prefHeight="320.0" prefWidth="745.0">
+      <TableView fx:id="tblBook" layoutY="230.0" prefHeight="320.0" prefWidth="745.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="កូដ/ISBN" />
-          <TableColumn prefWidth="75.0" text="ចំណងជើង" />
-            <TableColumn prefWidth="75.0" text="ចំណងជើងរង" />
-            <TableColumn prefWidth="75.0" text="ប្រភេទ" />
-            <TableColumn prefWidth="75.0" text="អ្នកនិពន្ធ" />
+          <TableColumn fx:id="cId" prefWidth="75.0" text="កូដ/ISBN" />
+          <TableColumn fx:id="cTitle" prefWidth="75.0" text="ចំណងជើង" />
+            <TableColumn fx:id="cSubTitle" prefWidth="75.0" text="ចំណងជើងរង" />
+            <TableColumn fx:id="cCategory" prefWidth="75.0" text="ប្រភេទ" />
+            <TableColumn fx:id="cAuthor" prefWidth="75.0" text="អ្នកនិពន្ធ" />
+            <TableColumn fx:id="cPrintYear" prefWidth="75.0" text="ឆ្នាំបោះពុម្ព" />
+            <TableColumn fx:id="cBookNum" prefWidth="75.0" text="ចំនួន" />
+            <TableColumn fx:id="cOther" prefWidth="75.0" text="ផ្សេងៗ" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <MaterialIconView fill="#ffaa00" glyphName="SEARCH" layoutX="713.0" layoutY="209.0" size="25">
+      <MaterialIconView fill="#ff5521" glyphName="CLOSE" layoutX="713.0" layoutY="209.0" onMouseClicked="#clickClearSearch" size="25">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </MaterialIconView>
+      <MaterialIconView fill="#909090" glyphName="SEARCH" layoutX="413.0" layoutY="209.0" onMouseClicked="#clickSearch" size="25">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

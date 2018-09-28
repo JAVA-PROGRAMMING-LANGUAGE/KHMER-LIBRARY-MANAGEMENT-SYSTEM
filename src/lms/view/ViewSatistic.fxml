@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane id="AnchorPane" prefHeight="356.0" prefWidth="720.0" style="-fx-background-color: white;" stylesheets="@../../resource/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lms.controller.ViewStatisticController">
+   <children>
+      <VBox alignment="TOP_CENTER" layoutX="184.0" layoutY="14.0" prefHeight="355.0" prefWidth="720.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ComboBox fx:id="cboType" prefHeight="31.0" prefWidth="358.0">
+               <padding>
+                  <Insets bottom="-5.0" top="-5.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </ComboBox>
+            <VBox fx:id="paneStatistic" alignment="CENTER_LEFT" style="-fx-background-color: #53a3b3; -fx-background-radius: 10;" styleClass="pane-statistic">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="10.0" left="38.0" right="10.0" top="10.0" />
+               </padding>
+            </VBox>
+            <AnchorPane fx:id="paneExport" prefHeight="108.0" prefWidth="720.0" style="-fx-background-radius: 10; -fx-background-color: #53a3b3;">
+               <children>
+                  <Button layoutX="32.0" layoutY="8.0" mnemonicParsing="false" onMouseClicked="#clickExportMember" styleClass="btn-export" text="នាំអ្នកដែលបានចុះឈ្មោះទាំងអស់ទៅកាន់អិកហ្សែល">
+                     <graphic>
+                        <MaterialDesignIconView fill="#e5eaff" glyphName="FILE_EXCEL" size="25" />
+                     </graphic>
+                  </Button>
+                  <Button layoutX="32.0" layoutY="49.0" mnemonicParsing="false" onMouseClicked="#clickExportBook" styleClass="btn-export" text="នាំសៀវភៅទាំងអស់ទៅកាន់អិកហ្សែល">
+                     <graphic>
+                        <MaterialDesignIconView fill="#e5eaff" glyphName="FILE_EXCEL" size="25" />
+                     </graphic>
+                  </Button>
+                  <Region layoutX="32.0" layoutY="81.0" prefHeight="11.0" prefWidth="200.0" />
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

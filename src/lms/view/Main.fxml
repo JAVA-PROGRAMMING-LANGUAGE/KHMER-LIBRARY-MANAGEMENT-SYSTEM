@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
 <?import javafx.geometry.Insets?>
@@ -39,7 +40,7 @@
                         </Label>
                         <Button fx:id="btnRegisterMember" alignment="TOP_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="336.0" style="-fx-border-color: white; -fx-background-color: white;" text="ចុះឈ្មោះអ្នកខ្ចីសៀវភៅ" textFill="#616161">
                            <graphic>
-                              <MaterialIconView fill="#034a0e" glyphName="PERSON_ADD" size="22" />
+                              <MaterialIconView fill="TEAL" glyphName="PERSON_ADD" size="22" />
                            </graphic>
                            <font>
                               <Font name="Kh System" size="15.0" />
@@ -60,15 +61,15 @@
                            <font>
                               <Font name="Kh System" size="15.0" />
                            </font>
-                           <graphic>
-                              <MaterialIconView fill="#ff5555" glyphName="BOOK" size="22" />
-                           </graphic>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                            <padding>
                               <Insets left="80.0" />
                            </padding>
+                           <graphic>
+                              <FontAwesomeIconView fill="RED" glyphName="BOOK" size="18" />
+                           </graphic>
                         </Button>
                         <Separator layoutX="10.0" layoutY="73.0" opacity="0.5" prefWidth="200.0">
                            <padding>
@@ -79,15 +80,15 @@
                            <font>
                               <Font name="Kh System" size="15.0" />
                            </font>
-                           <graphic>
-                              <MaterialIconView fill="#769714" glyphName="BOOK" size="22" />
-                           </graphic>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                            <padding>
                               <Insets left="80.0" />
                            </padding>
+                           <graphic>
+                              <FontAwesomeIconView fill="GREEN" glyphName="BOOK" size="18" />
+                           </graphic>
                         </Button>
                         <Separator layoutX="10.0" layoutY="100.0" opacity="0.5" prefWidth="200.0">
                            <padding>
@@ -98,15 +99,15 @@
                            <font>
                               <Font name="Kh System" size="15.0" />
                            </font>
-                           <graphic>
-                              <MaterialIconView fill="TEAL" glyphName="BOOK" size="22" />
-                           </graphic>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                            <padding>
                               <Insets left="80.0" />
                            </padding>
+                           <graphic>
+                              <FontAwesomeIconView fill="BLUE" glyphName="BOOK" size="18" />
+                           </graphic>
                         </Button>
                         <Separator layoutX="10.0" layoutY="127.0" opacity="0.5" prefWidth="200.0">
                            <padding>
@@ -156,7 +157,7 @@
                               <Font name="Kh System" size="15.0" />
                            </font>
                            <graphic>
-                              <MaterialIconView fill="#6627cd" glyphName="INFO" size="22" />
+                              <MaterialIconView fill="#ff5500" glyphName="INFO" size="22" />
                            </graphic>
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -240,7 +241,7 @@
             </GridPane>
          </top>
          <center>
-            <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e3e3e3; -fx-border-radius: 20;" BorderPane.alignment="CENTER">
+            <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e3e3e3; -fx-border-radius: 20; -fx-border-width: 2;" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets bottom="30.0" left="100.0" right="100.0" top="30.0" />
                </BorderPane.margin>

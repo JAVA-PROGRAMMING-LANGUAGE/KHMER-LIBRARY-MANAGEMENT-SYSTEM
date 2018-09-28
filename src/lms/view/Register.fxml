@@ -14,7 +14,7 @@
 
 <AnchorPane id="AnchorPane" style="-fx-background-color: white;" stylesheets="@../../resource/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lms.controller.RegisterController">
    <children>
-      <TextField fx:id="txtSearch" layoutX="407.0" layoutY="250.0" prefHeight="33.0" prefWidth="338.0" promptText="ស្វែងរកតាមរយៈលេខសម្គាល់ ឬឈ្មោះ">
+      <TextField fx:id="txtSearch" layoutX="407.0" layoutY="250.0" prefHeight="33.0" prefWidth="338.0" promptText="ស្វែងរកតាមរយៈលេខសម្គាល់ ឬឈ្មោះ" styleClass="text-search">
          <font>
             <Font name="Kh System" size="15.0" />
          </font>
@@ -163,7 +163,12 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <MaterialIconView fx:id="btnSearch" fill="#ffaa00" glyphName="SEARCH" layoutX="711.0" layoutY="279.0" size="25">
+      <MaterialIconView fx:id="btnSearch" fill="#f53131" glyphName="CLOSE" layoutX="711.0" layoutY="279.0" onMouseClicked="#clickClearSearch" size="25">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </MaterialIconView>
+      <MaterialIconView fx:id="btnSearch1" fill="#909090" glyphName="SEARCH" layoutX="416.0" layoutY="279.0" onMouseClicked="#clickSearch" size="25">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

@@ -94,6 +94,9 @@ public class MainController implements Initializable {
             AnchorPane addMaterial = FXMLLoader.load(getClass().getResource("/lms/view/AddMaterial.fxml"));
             vbMaterial.getChildren().add(addMaterial);
 
+            AnchorPane viewStatistic = FXMLLoader.load(getClass().getResource("/lms/view/ViewSatistic.fxml"));
+            vbStatistic.getChildren().add(viewStatistic);
+
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
