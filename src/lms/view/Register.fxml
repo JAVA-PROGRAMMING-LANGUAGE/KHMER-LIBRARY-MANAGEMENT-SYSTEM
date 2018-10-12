@@ -145,7 +145,7 @@
          </padding>
       </Button>
       
-      <TableView fx:id="tblMember" layoutY="300.0" prefHeight="250.0" prefWidth="745.0">
+      <TableView fx:id="tblMember" layoutY="300.0" prefHeight="250.0" prefWidth="745.0" tableMenuButtonVisible="true">
         <columns>
           <TableColumn fx:id="cId" prefWidth="75.0" text="លេខសម្គាល់" />
           <TableColumn fx:id="cName" prefWidth="75.0" text="ឈ្មោះ" />

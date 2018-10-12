@@ -119,8 +119,8 @@ public class IssueBookController implements Initializable {
         tblMember.getItems().clear();
         if (!txtSearchMember.getText().isEmpty()) {
             ObservableList<MemberPojo> memList = FXCollections.observableArrayList();
-            String sql = "SELECT * FROM tb_member WHERE name LIKE ?"
-                    + "UNION SELECT * FROM tb_member WHERE latin LIKE ? ORDER BY latin  LIMIT 200";
+            String sql = "SELECT id, name, latin, gender,phone FROM tb_member WHERE name LIKE ?"
+                    + "UNION SELECT id, name, latin, gender,phone FROM tb_member WHERE latin LIKE ? ORDER BY latin  LIMIT 200";
             try {
                 pst = conn.prepareStatement(sql);
                 pst.setString(1, txtSearchMember.getText().trim() + "%");
@@ -202,28 +202,39 @@ public class IssueBookController implements Initializable {
     }
 
     private void loadNumBorrow() throws NumberFormatException {
-        String sql = "SELECT COUNT(*) FROM tb_issue WHERE m_id=?";
+        String sql = "SELECT COUNT(*), MAX(CURRENT_DATE-tb_issue.issue_date)  FROM tb_issue WHERE m_id=?";
         btnIssue.setVisible(false);
         try {
             pst = conn.prepareStatement(sql);
             pst.setInt(1, Integer.parseInt(tblMember.getSelectionModel().getSelectedItem().getId()));
             rs = pst.executeQuery();
-            int n = 0;
+            int count = 0;
+            int max = 0;
             while (rs.next()) {
-                n = rs.getInt(1);
+                count = rs.getInt(1);
+                max = rs.getInt(2);
             }
-            if (n >= 2) {
+            if (max >= 14) {
                 iconInfo.setStyle("-fx-fill:red");
                 lblInfo.setStyle("-fx-text-fill:red");
-                lblInfo.setText("បានខ្ចីសៀវភៅចំនួន" + n + "ក្បាលហើយ មិនអាចឱ្យខ្ចីទៀតទេ។");
+                lblInfo.setText("បានខ្ចីសៀវភៅ" + max + "ថ្ងៃហើយ ត្រូវសងសៀវភៅសិន។");
                 txtSearchBook.setEditable(false);
                 txtSearchBook.setText("");
                 tblBook.setDisable(true);
+                System.out.println(">=14days");
+            } else if (count >= 2) {
+                iconInfo.setStyle("-fx-fill:red");
+                lblInfo.setStyle("-fx-text-fill:red");
+                lblInfo.setText("បានខ្ចីសៀវភៅចំនួន" + count + "ក្បាលហើយ មិនអាចឱ្យខ្ចីទៀតទេ។");
+                txtSearchBook.setEditable(false);
+                txtSearchBook.setText("");
+                tblBook.setDisable(true);
+                System.out.println("=2books");
                 
             } else {
                 iconInfo.setStyle("-fx-fill:#4c787e");
                 lblInfo.setStyle("-fx-text-fill:#4c787e");
-                lblInfo.setText("បានខ្ចីសៀវភៅចំនួន" + n + "ក្បាល។");
+                lblInfo.setText("បានខ្ចីសៀវភៅចំនួន" + count + "ក្បាល។");
                 txtSearchBook.setEditable(true);
                 tblBook.setDisable(false);
             }

@@ -5,9 +5,21 @@
  */
 package lms.controller;
 
+import animatefx.animation.BounceIn;
+import animatefx.animation.JackInTheBox;
+import animatefx.animation.LightSpeedIn;
 import animatefx.animation.RollIn;
+import animatefx.animation.RubberBand;
+import animatefx.animation.Shake;
+import animatefx.animation.Swing;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,10 +28,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import lms.DbConnection;
+import lms.MyDialog;
 
 /**
  * FXML Controller class
@@ -60,6 +77,10 @@ public class MainController implements Initializable {
     private StackPane mainPane;
     public static StackPane stackPane;
 
+    private Connection conn = null;
+    private PreparedStatement pst = null;
+    private ResultSet rs = null;
+
     //private AnchorPane mainPane;
     /**
      * Initializes the controller class.
@@ -67,6 +88,7 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.stackPane = mainPane;
+        conn = DbConnection.connect();
         loadForm();
         clickMenu();
 
@@ -97,6 +119,9 @@ public class MainController implements Initializable {
             AnchorPane viewStatistic = FXMLLoader.load(getClass().getResource("/lms/view/ViewSatistic.fxml"));
             vbStatistic.getChildren().add(viewStatistic);
 
+            AnchorPane about = FXMLLoader.load(getClass().getResource("/lms/view/about.fxml"));
+            vbAbout.getChildren().add(about);
+
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -109,6 +134,7 @@ public class MainController implements Initializable {
         vbAddBook.setVisible(false);
         vbMaterial.setVisible(false);
         vbStatistic.setVisible(false);
+        vbAbout.setVisible(false);
     }
 
     private void clickMenu() {
@@ -122,32 +148,118 @@ public class MainController implements Initializable {
         btnIssueBook.setOnAction((e) -> {
             hidePane();
             vbIssueBook.setVisible(true);
-            new RollIn(vbIssueBook).play();
+            new JackInTheBox(vbIssueBook).play();
         });
         
         btnReturnBook.setOnAction((e) -> {
             hidePane();
             vbRetrunBook.setVisible(true);
-            new RollIn(vbRetrunBook).play();
+            new BounceIn(vbRetrunBook).play();
         });
         
         btnAddBook.setOnAction((e)->{
             hidePane();
             vbAddBook.setVisible(true);
-            new RollIn(vbAddBook).play();
+            new LightSpeedIn(vbAddBook).play();
         });
         
         btnMaterial.setOnAction((e)->{
             hidePane();
             vbMaterial.setVisible(true);
-            new RollIn(vbMaterial).play();
+            new Shake(vbMaterial).play();
         });
         
         btnStatistic.setOnAction((e)->{
             hidePane();
             vbStatistic.setVisible(true);
-            new RollIn(vbStatistic).play();
+            new RubberBand(vbStatistic).play();
         });
+        btnAbout.setOnAction((e) -> {
+            hidePane();
+            vbAbout.setVisible(true);
+            new Swing(vbAbout).play();
+        });
+    }
+
+    @FXML
+    private void clickMinimize(MouseEvent event) {
+        Stage stage = (Stage) stackPane.getScene().getWindow();
+        stage.setIconified(true);
+    }
+
+    @FXML
+    private void clickAccount(MouseEvent event) {
+        Button close = new Button("បោះបង់");
+        Button ok = new Button("ប្ដូរ");
+        close.setStyle("-fx-cursor:hand ; -fx-font-color:red ; -fx-border-color:white; -fx-background-color:white");
+        ok.setStyle("-fx-cursor:hand; -fx-font-color:red ; -fx-border-color:white; -fx-background-color:white ; -fx-text-fill:red");
+        JFXDialogLayout content = new JFXDialogLayout();
+        JFXDialog dialog = new JFXDialog(MainController.stackPane, content, JFXDialog.DialogTransition.TOP, false);
+
+        content.setHeading(new Text("ប្ដូរពាក្យសម្ងាត់!"));
+        PasswordField txtOldPass = new PasswordField();
+        txtOldPass.setPromptText("វាយពាក្យសម្ងាត់បច្ចុប្បន្ន");
+        PasswordField txtNewPass = new PasswordField();
+        txtNewPass.setPromptText("វាយពាក្យសម្ងាត់ថ្មី");
+        
+        VBox vb = new VBox();
+        vb.getChildren().setAll(txtOldPass, txtNewPass);
+        
+        content.setBody(vb);
+        content.setStyle("-fx-font-size: 15; -fx-font-family: 'Kh System'");
+        content.setActions(close, ok);
+        close.setOnAction(e -> {
+            dialog.close();
+        });
+        ok.setOnAction(e -> {
+            String sql = "SELECT * FROM tb_pwd WHERE pwd=?";
+            try {
+                pst = conn.prepareStatement(sql);
+                pst.setString(1, txtOldPass.getText());
+                rs = pst.executeQuery();
+
+                if (!rs.next()) {
+                    new MyDialog().showInfoDialog("ប្ដូរពាក្យសម្ងាត់!", "ពាក្យសម្ងាត់បច្ចុប្បន្នមិនត្រឹមត្រូវ។");
+                    return;
+                } else if (txtNewPass.getText().trim().toCharArray().length < 4) {
+                    new MyDialog().showInfoDialog("ប្ដូរពាក្យសម្ងាត់!", "ពាក្យសម្ងាត់ថ្មីត្រូវមានចាប់ពី៤តួឡើងទៅ។");
+                    return;
+                } else {
+                    updatePwd(txtNewPass.getText().trim());
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                try {
+                    rs.close();
+                    pst.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            dialog.close();
+        });
+        dialog.show();
+    }
+
+    private void updatePwd(String pwd) {
+        try {
+            String sql = "UPDATE tb_pwd SET pwd=?";
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, pwd);
+            pst.executeUpdate();
+            new MyDialog().showInfoDialog("ប្ដូរពាក្យសម្ងាត់!", "ពាក្យសម្ងាត់ត្រូវបានប្ដូរ។\nនៅពេលបើកកម្មវិធីលើកក្រោយត្រូវវាយពាក្យសម្ងាត់ថ្មីនេះ។");
+        } catch (SQLException ex) {
+            Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                pst.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
 }

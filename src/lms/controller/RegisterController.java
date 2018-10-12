@@ -318,7 +318,7 @@ public class RegisterController implements Initializable {
             String sql = "INSERT INTO tb_member(name, latin, gender, bd, village, commune, district, province, phone) values(?,?,?,?,?,?,?,?,?)";
             pst = conn.prepareStatement(sql);
             pst.setString(1, txtName.getText().trim());
-            pst.setString(2, txtLatin.getText().trim());
+            pst.setString(2, txtLatin.getText().trim().toUpperCase());
             pst.setString(3, cboGender.getSelectionModel().getSelectedItem());
             pst.setString(4, txtBirth.getText().trim());
             pst.setString(5, txtVillage.getText().trim());

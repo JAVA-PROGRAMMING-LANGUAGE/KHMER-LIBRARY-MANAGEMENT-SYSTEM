@@ -123,7 +123,7 @@
          </padding>
       </Button>
       
-      <TableView fx:id="tblBook" layoutY="230.0" prefHeight="320.0" prefWidth="745.0">
+      <TableView fx:id="tblBook" layoutY="230.0" prefHeight="320.0" prefWidth="745.0" tableMenuButtonVisible="true">
         <columns>
           <TableColumn fx:id="cId" prefWidth="75.0" text="កូដ/ISBN" />
           <TableColumn fx:id="cTitle" prefWidth="75.0" text="ចំណងជើង" />

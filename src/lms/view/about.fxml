@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane id="AnchorPane" style="-fx-background-color: white;" stylesheets="@../../resource/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lms.controller.aboutController">
+   <children>
+      <VBox fx:id="paneAbout" alignment="CENTER_LEFT" style="-fx-background-color: #53a3; -fx-background-radius: 10;">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets bottom="10.0" left="38.0" right="10.0" top="10.0" />
+         </padding>
+         <children>
+            <HBox>
+               <children>
+                  <Label text="កម្មវិធីគ្រប់គ្រងបណ្ណាល័យនេះត្រូវបានបង្កើតឡើងដោយលោក" />
+                  <Label styleClass="label-name" text=" ស៊្រុន វណ្ណារ៉ា" />
+               </children>
+            </HBox>
+            <Label text="សរសេរចប់នៅថ្ងៃសុក្រ ១១រោច ខែភទ្របទ ឆ្នាំច សំរឹទ្ធិស័ក ពុទ្ធសករាជ ២៥៦២" />
+            <Label layoutX="48.0" layoutY="49.0" text="ត្រូវនឹងថ្ងៃទី៥ ខែតុលា ឆ្នាំ២០១៨" />
+            <Label layoutX="48.0" layoutY="78.0" text="Version 1.0" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
