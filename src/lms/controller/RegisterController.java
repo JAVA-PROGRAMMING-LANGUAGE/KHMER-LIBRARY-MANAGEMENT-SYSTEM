@@ -7,7 +7,6 @@ package lms.controller;
 
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
-import de.jensd.fx.glyphs.materialicons.MaterialIconView;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -64,13 +63,7 @@ public class RegisterController implements Initializable {
     @FXML
     private Button btnSave;
     @FXML
-    private Button btnNew;
-    @FXML
-    private Button btnDelete;
-    @FXML
     private TableView<MemberPojo> tblMember;
-    @FXML
-    private MaterialIconView btnSearch;
 
     private Connection conn = null;
     private PreparedStatement pst = null;
@@ -95,8 +88,7 @@ public class RegisterController implements Initializable {
     private TableColumn<MemberPojo, String> cDistrict;
     @FXML
     private TableColumn<MemberPojo, String> cProvince;
-    @FXML
-    private MaterialIconView btnSearch1;
+
 
     /**
      * Initializes the controller class.
@@ -115,15 +107,11 @@ public class RegisterController implements Initializable {
      * Check if blank field exists
      */
     private Boolean isEmptyField() {
-        if (txtName.getText().trim().equals("") || txtLatin.getText().trim().equals("")
+        return txtName.getText().trim().equals("") || txtLatin.getText().trim().equals("")
                 || cboGender.getSelectionModel().isEmpty()
                 || txtBirth.getText().trim().equals("") || txtVillage.getText().trim().equals("")
                 || txtCommune.getText().trim().equals("") || txtDistrict.getText().trim().equals("")
-                || txtProvince.getText().trim().equals("") || txtPhone.getText().trim().equals("")) {
-            return true;
-        } else {
-            return false;
-        }
+                || txtProvince.getText().trim().equals("") || txtPhone.getText().trim().equals("");
     }
     private void showUpdateDialog(String head, String body) {
         Button close = new Button("ទេ");
@@ -150,7 +138,7 @@ public class RegisterController implements Initializable {
      */
     private void loadMember() {
         ObservableList<MemberPojo> memberList = FXCollections.observableArrayList();
-        String sql = "SELECT * FROM tb_member ORDER BY id  DESC LIMIT 200";
+        String sql = "SELECT * FROM tb_member ORDER BY id  DESC LIMIT 50";
         try {
             pst = conn.prepareStatement(sql);
             rs = pst.executeQuery();

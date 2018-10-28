@@ -1,0 +1,8 @@
+
+#fontawesomefx-8.8
+#animateFx-1.2.0
+#postgreshql-42.2.2
+#jfoenix-8.0.7
+#poi-4.0.0
+#poi-ooxml-4.0.0
+#jdk 1.8

@@ -5,6 +5,8 @@
  */
 package lms.controller;
 
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import de.jensd.fx.glyphs.materialicons.MaterialIconView;
 import java.net.URL;
 import java.sql.Connection;
@@ -28,6 +30,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import lms.DbConnection;
 import lms.MyDialog;
 import lms.pojo.BookPojo;
@@ -117,10 +120,11 @@ public class IssueBookController implements Initializable {
         btnIssue.setVisible(false);
         lblDate.setVisible(false);
         tblMember.getItems().clear();
+        txtSearchBook.setText("");
         if (!txtSearchMember.getText().isEmpty()) {
             ObservableList<MemberPojo> memList = FXCollections.observableArrayList();
             String sql = "SELECT id, name, latin, gender,phone FROM tb_member WHERE name LIKE ?"
-                    + "UNION SELECT id, name, latin, gender,phone FROM tb_member WHERE latin LIKE ? ORDER BY latin  LIMIT 200";
+                    + "UNION SELECT id, name, latin, gender,phone FROM tb_member WHERE latin LIKE ? ORDER BY latin  LIMIT 50";
             try {
                 pst = conn.prepareStatement(sql);
                 pst.setString(1, txtSearchMember.getText().trim() + "%");
@@ -155,7 +159,7 @@ public class IssueBookController implements Initializable {
         if (row >= 0) {
             ObservableList<BookPojo> bookList = FXCollections.observableArrayList();
             String sql = "SELECT * FROM tb_book WHERE b_id LIKE ?"
-                    + "UNION SELECT * FROM tb_book WHERE title LIKE ? ORDER BY title  LIMIT 200";
+                    + "UNION SELECT * FROM tb_book WHERE title LIKE ? ORDER BY title  LIMIT 50";
             try {
                 pst = conn.prepareStatement(sql);
                 pst.setString(1, txtSearchBook.getText().toUpperCase().trim() + "%");
@@ -252,6 +256,27 @@ public class IssueBookController implements Initializable {
 
     @FXML
     private void clickIssue(MouseEvent event) {
+        Button close = new Button("ទេ");
+        Button ok = new Button("បាទ");
+        close.setStyle("-fx-cursor:hand ; -fx-font-color:red ; -fx-border-color:white; -fx-background-color:white");
+        ok.setStyle("-fx-cursor:hand; -fx-font-color:red ; -fx-border-color:white; -fx-background-color:white ; -fx-text-fill:red");
+        JFXDialogLayout content = new JFXDialogLayout();
+        JFXDialog dialog = new JFXDialog(MainController.stackPane, content, JFXDialog.DialogTransition.CENTER, true);
+        content.setHeading(new Text("ឱ្យខ្ចីសៀវភៅ!"));
+        content.setBody(new Text("តើអ្នកពិតជាចង់ឱ្យខ្ចីសៀវភៅនេះមែនទេ?"));
+        content.setStyle("-fx-font-size: 15; -fx-font-family: 'Kh System'");
+        content.setActions(close, ok);
+        close.setOnAction(e -> {
+            dialog.close();
+        });
+        ok.setOnAction(e -> {
+            issueBook();
+            dialog.close();
+        });
+        dialog.show();
+    }
+
+    private void issueBook() throws NumberFormatException {
         int mId = Integer.parseInt(tblMember.getSelectionModel().getSelectedItem().getId());
         String bId = tblBook.getSelectionModel().getSelectedItem().getId();
         try {

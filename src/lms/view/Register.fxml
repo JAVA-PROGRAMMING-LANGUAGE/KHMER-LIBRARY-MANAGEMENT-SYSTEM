@@ -9,11 +9,18 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" style="-fx-background-color: white;" stylesheets="@../../resource/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lms.controller.RegisterController">
    <children>
+      <ImageView fitHeight="363.0" fitWidth="745.0" pickOnBounds="true">
+         <image>
+            <Image url="@../../resource/bg.jpg" />
+         </image>
+      </ImageView>
       <TextField fx:id="txtSearch" layoutX="407.0" layoutY="250.0" prefHeight="33.0" prefWidth="338.0" promptText="ស្វែងរកតាមរយៈលេខសម្គាល់ ឬឈ្មោះ" styleClass="text-search">
          <font>
             <Font name="Kh System" size="15.0" />
@@ -48,7 +55,7 @@
             <Font size="15.0" />
          </font>
       </TextField>
-      <ComboBox fx:id="cboGender" layoutX="495.0" layoutY="50.0" prefWidth="250.0">
+      <ComboBox fx:id="cboGender" layoutX="495.0" layoutY="50.0" prefHeight="35.0" prefWidth="250.0">
          <padding>
             <Insets bottom="-5.0" top="-5.0" />
          </padding></ComboBox>
@@ -102,7 +109,7 @@
             <Font name="Kh System" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="txtProvince" layoutX="110.0" layoutY="200.0" prefHeight="25.0" prefWidth="250.0">
+      <TextField fx:id="txtProvince" depthTest="ENABLE" layoutX="110.0" layoutY="200.0" prefHeight="25.0" prefWidth="250.0">
          <font>
             <Font size="15.0" />
          </font>
@@ -128,7 +135,7 @@
             <Insets bottom="3.0" top="-2.0" />
          </padding>
       </Button>
-      <Button fx:id="btnNew" alignment="CENTER" layoutX="198.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#clickNew" prefHeight="33.0" prefWidth="75.0" text="ថ្មី">
+      <Button alignment="CENTER" layoutX="198.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#clickNew" prefHeight="33.0" prefWidth="75.0" text="ថ្មី">
          <font>
             <Font name="Kh System" size="14.0" />
          </font>
@@ -136,7 +143,7 @@
             <Insets bottom="3.0" top="-2.0" />
          </padding>
       </Button>
-      <Button fx:id="btnDelete" alignment="CENTER" layoutX="285.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#clickDelete" prefHeight="33.0" prefWidth="75.0" text="លុប">
+      <Button alignment="CENTER" layoutX="285.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#clickDelete" prefHeight="33.0" prefWidth="75.0" text="លុប">
          <font>
             <Font name="Kh System" size="14.0" />
          </font>
@@ -146,29 +153,32 @@
       </Button>
       
       <TableView fx:id="tblMember" layoutY="300.0" prefHeight="250.0" prefWidth="745.0" tableMenuButtonVisible="true">
+          <placeholder>
+              <Label text="" />
+          </placeholder>
         <columns>
           <TableColumn fx:id="cId" prefWidth="75.0" text="លេខសម្គាល់" />
           <TableColumn fx:id="cName" prefWidth="75.0" text="ឈ្មោះ" />
-            <TableColumn fx:id="cLatin" prefWidth="75.0" text="ជាអក្សរឡាតាំង" />
+            <TableColumn fx:id="cLatin" prefWidth="75.0" text="ជាអក្សរឡាតាំង" visible="false" />
             <TableColumn fx:id="cGender" prefWidth="75.0" text="ភេទ" />
             <TableColumn fx:id="cBirth" prefWidth="75.0" text="ថ្ងៃខែឆ្នាំកំណើត" />
-            <TableColumn fx:id="cVillage" prefWidth="75.0" text="ភូមិ" />
+            <TableColumn fx:id="cVillage" prefWidth="75.0" text="ភូមិ" visible="false" />
             <TableColumn fx:id="cCommune" prefWidth="75.0" text="ឃុំ" />
-            <TableColumn fx:id="cDistrict" prefWidth="75.0" resizable="false" text="ស្រុក" />
-            <TableColumn fx:id="cProvince" prefWidth="75.0" text="ខេត្ត" />
-            <TableColumn fx:id="cPhone" prefWidth="75.0" text="លេខទូរស័ព្ទ" />
+            <TableColumn fx:id="cDistrict" prefWidth="75.0" text="ស្រុក" visible="false" />
+            <TableColumn fx:id="cProvince" minWidth="0.0" prefWidth="141.0" text="ខេត្ត" visible="false" />
+            <TableColumn fx:id="cPhone" minWidth="0.0" prefWidth="0.0" text="លេខទូរស័ព្ទ" />
             
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <MaterialIconView fx:id="btnSearch" fill="#f53131" glyphName="CLOSE" layoutX="711.0" layoutY="279.0" onMouseClicked="#clickClearSearch" size="25">
+      <MaterialIconView fill="#818181" glyphName="REPLAY" layoutX="715.0" layoutY="278.0" onMouseClicked="#clickClearSearch" size="24">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </MaterialIconView>
-      <MaterialIconView fx:id="btnSearch1" fill="#909090" glyphName="SEARCH" layoutX="416.0" layoutY="279.0" onMouseClicked="#clickSearch" size="25">
+      <MaterialIconView fill="#818181" glyphName="SEARCH" layoutX="416.0" layoutY="279.0" onMouseClicked="#clickSearch" size="25">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

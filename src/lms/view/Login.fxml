@@ -1,65 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="paneLogin" prefHeight="408.0" prefWidth="617.0" style="-fx-background-color: #757575;" stylesheets="@../../resource/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lms.controller.LoginController">
+<AnchorPane fx:id="paneLogin" prefHeight="367.0" prefWidth="590.0" style="-fx-background-color: white; -fx-border-color: silver; -fx-border-width: 2;" stylesheets="@../../resource/login.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lms.controller.LoginController">
    <children>
-      <Button layoutX="469.0" layoutY="346.0" mnemonicParsing="false" onMouseClicked="#clickLogin" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: #757575;" text="ចូល">
-         <font>
-            <Font name="Kh System" size="14.0" />
-         </font>
-         <effect>
-            <DropShadow height="6.93" radius="1.4825" width="1.0" />
-         </effect></Button>
-      <VBox alignment="CENTER" layoutX="-4.0" prefHeight="44.0" prefWidth="625.0" style="-fx-background-color: #616161;">
+      <ImageView fitHeight="372.0" fitWidth="586.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true">
+         <image>
+            <Image url="@../../resource/bg.jpg" />
+         </image>
+      </ImageView>
+      <VBox alignment="CENTER" layoutX="128.0" layoutY="3.0" prefHeight="58.0" prefWidth="354.0" style="-fx-border-radius: 0 0 10 10; -fx-border-color: silver; -fx-border-width: 0 1 1 1;">
          <children>
-            <Label styleClass="label-login" text="កម្មវិធីគ្រប់គ្រងបណ្ណាល័យ" textFill="#eeeeee">
+            <Label style="-fx-font-family: &quot;Khmer OS Muol Pali&quot;; -fx-font-size: 18;" text="កម្មវិធីគ្រប់គ្រងបណ្ណាល័យ" textFill="#818181" />
+         </children>
+      </VBox>
+      <VBox alignment="CENTER" layoutX="9.0" layoutY="5.0" prefHeight="381.0" prefWidth="594.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="5.0">
+         <children>
+            <Label text="បណ្ណាល័យហាន់ជ័យ" textFill="#868686">
                <font>
-                  <Font name="Khmer Muol" size="22.0" />
+                  <Font name="Khmer OS Muol Pali" size="18.0" />
                </font>
             </Label>
-         </children>
-         <effect>
-            <DropShadow />
-         </effect>
-      </VBox>
-      <PasswordField layoutX="328.0" layoutY="298.0" prefHeight="33.0" prefWidth="258.0" promptText="សូមវាយពាក្យសម្ងាត់ដើម្បីចូលប្រើ" style="-fx-border-color: white; -fx-text-fill: white;" />
-      <VBox alignment="CENTER" layoutY="46.0" prefHeight="245.0" prefWidth="606.0">
-         <children>
-            <Label fx:id="lblLib" styleClass="label-login" textFill="#4a4a4a">
+            <Label text="សូមស្វាគមន៍" textFill="#868686">
                <font>
-                  <Font name="Khmer Muol" size="18.0" />
+                  <Font name="Khmer OS Muol Pali" size="18.0" />
                </font>
             </Label>
+            <AnchorPane prefHeight="65.0" prefWidth="327.0">
+               <children>
+                  <ImageView fx:id="imgLoading" fitHeight="65.0" fitWidth="77.0" layoutX="252.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@../../resource/spinner.gif" />
+                     </image>
+                  </ImageView>
+                  <FontAwesomeIconView fx:id="imgBook" fill="#868686" glyphName="BOOK" layoutX="261.0" layoutY="48.0" size="50" />
+               </children>
+            </AnchorPane>
          </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
       </VBox>
-      <VBox layoutX="14.0" layoutY="295.0" style="-fx-background-color: #757575; -fx-background-radius: 5;">
-         <children>
-            <Label styleClass="label-name" text="ដោយលោក ស៊្រុន វណ្ណារ៉ា" />
-            <Label styleClass="label-name" text="010832005" />
-            <Label styleClass="label-name" text="Version 1.0" />
-         </children>
-         <effect>
-            <DropShadow color="#463a3a" height="5.0" radius="2.0" width="5.0" />
-         </effect>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
-      </VBox>
-      <Button layoutX="353.0" layoutY="346.0" mnemonicParsing="false" onMouseClicked="#clickExit" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: #757575;" text="ចាកចេញ">
+      <Button layoutX="351.0" layoutY="306.0" mnemonicParsing="false" onMouseClicked="#clickExit" prefHeight="35.0" prefWidth="90.0" text="ចាកចេញ">
          <font>
-            <Font name="Kh System" size="14.0" />
+            <Font name="Khmer OS" size="13.0" />
          </font>
          <effect>
             <DropShadow height="6.93" radius="1.4825" width="1.0" />
          </effect>
       </Button>
+      <VBox alignment="CENTER_LEFT" layoutX="29.0" layoutY="230.0" opacity="0.77" prefHeight="120.0" prefWidth="206.0" style="-fx-background-color: white; -fx-border-color: #e3e3e3; -fx-border-radius: 5;">
+         <children>
+            <Label text="ដោយលោក ស៊្រុន វណ្ណារ៉ា">
+               <font>
+                  <Font name="Khmer OS" size="14.0" />
+               </font></Label>
+            <Label text="ទូរស័ព្ទលេខៈ 010832005">
+               <font>
+                  <Font name="Khmer OS" size="14.0" />
+               </font></Label>
+            <Label text="Version 1.0 beta">
+               <font>
+                  <Font name="Khmer OS" size="14.0" />
+               </font></Label>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+      <PasswordField fx:id="txtPwd" layoutX="331.0" layoutY="258.0" prefHeight="32.0" prefWidth="239.0" promptText="សូមវាយពាក្យសម្ងាត់ដើម្បីចូលប្រើ" />
+      <Button layoutX="461.0" layoutY="306.0" mnemonicParsing="false" onMouseClicked="#clickLogin" prefHeight="35.0" prefWidth="90.0" text="ចូល">
+         <font>
+            <Font name="Khmer OS" size="13.0" />
+         </font>
+         <effect>
+            <DropShadow height="6.93" radius="1.4825" width="1.0" />
+         </effect></Button>
    </children>
 </AnchorPane>

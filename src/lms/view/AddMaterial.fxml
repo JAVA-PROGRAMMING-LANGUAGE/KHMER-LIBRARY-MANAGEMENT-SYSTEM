@@ -6,11 +6,18 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="720.0" style="-fx-background-color: white;" stylesheets="@../../resource/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lms.controller.AddMaterialController">
    <children>
+      <ImageView fitHeight="550.0" fitWidth="720.0" pickOnBounds="true">
+         <image>
+            <Image url="@../../resource/bg3.jpg" />
+         </image>
+      </ImageView>
       <Label style="-fx-text-fill: #616161;" text="ឈ្មោះសម្ភារ">
          <font>
             <Font name="Kh System" size="14.0" />
@@ -87,6 +94,9 @@
       </Button>
       
       <TableView fx:id="tblMaterial" layoutY="200.0" prefHeight="350.0" prefWidth="720.0">
+           <placeholder>
+              <Label text="" />
+          </placeholder>
         <columns>
             <TableColumn fx:id="cId" prefWidth="75.0" text="លេខសម្គាល់" visible="false" />
           <TableColumn fx:id="cName" prefWidth="75.0" text="ឈ្មោះសម្ភារ" />

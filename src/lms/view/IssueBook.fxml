@@ -8,18 +8,28 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" style="-fx-background-color: white;" stylesheets="@../../resource/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lms.controller.IssueBookController">
    <children>
-      <TextField fx:id="txtSearchMember" prefHeight="15.0" prefWidth="745.0" promptText="ស្វែងរកអ្នកខ្ចីតាមរយៈឈ្មោះ">
+      <ImageView fitHeight="533.0" fitWidth="745.0" pickOnBounds="true">
+         <image>
+            <Image url="@../../resource/bg.jpg" />
+         </image>
+      </ImageView>
+      <TextField fx:id="txtSearchMember" layoutX="123.0" layoutY="1.0" prefHeight="15.0" prefWidth="500.0" promptText="ស្វែងរកអ្នកខ្ចីតាមរយៈឈ្មោះ">
          <font>
             <Font name="Kh System" size="15.0" />
          </font>
       </TextField>
       
       <TableView fx:id="tblMember" layoutY="50.0" prefHeight="180.0" prefWidth="745.0">
+           <placeholder>
+              <Label text="" />
+          </placeholder>
         <columns>
           <TableColumn fx:id="cMid" prefWidth="75.0" text="លេខសម្គាល់" />
           <TableColumn fx:id="cName" prefWidth="75.0" text="ឈ្មោះ" />
@@ -31,17 +41,20 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <MaterialIconView fill="#ffaa00" glyphName="SEARCH" layoutX="715.0" layoutY="28.0" onMouseClicked="#clickSearchMember" size="25">
+      <MaterialIconView fill="#818181" glyphName="SEARCH" layoutX="591.0" layoutY="31.0" onMouseClicked="#clickSearchMember" size="25">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </MaterialIconView>
-      <TextField fx:id="txtSearchBook" layoutY="250.0" prefHeight="15.0" prefWidth="745.0" promptText="ស្វែងរកសៀវភៅតាមរយៈកូដ/ISBN ឬចំណងជើង">
+      <TextField fx:id="txtSearchBook" layoutX="123.0" layoutY="248.0" prefHeight="15.0" prefWidth="500.0" promptText="ស្វែងរកសៀវភៅតាមរយៈកូដ/ISBN ឬចំណងជើង">
          <font>
             <Font name="Kh System" size="15.0" />
          </font>
       </TextField>
       <TableView fx:id="tblBook" layoutY="300.0" prefHeight="180.0" prefWidth="745.0">
+           <placeholder>
+              <Label text="" />
+          </placeholder>
          <columns>
             <TableColumn fx:id="cBid" prefWidth="75.0" text="កូដ/ISBN" />
             <TableColumn fx:id="cTitle" prefWidth="75.0" text="ចំណងជើង" />
@@ -53,7 +66,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <MaterialIconView fill="#ffaa00" glyphName="SEARCH" layoutX="715.0" layoutY="279.0" onMouseClicked="#clickSearchBook" size="25">
+      <MaterialIconView fill="#818181" glyphName="SEARCH" layoutX="591.0" layoutY="277.0" onMouseClicked="#clickSearchBook" size="25">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

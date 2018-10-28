@@ -10,7 +10,7 @@ package lms.pojo;
  * @author SRUN VANNARA
  */
 public class BookPojo {
-    private String id, title, subTitle, category, author, printYear, bookNum, other, issueDate, returnDate;
+    private String id, title, subTitle, category, author, printYear, bookNum, other, numDay;
 
     public BookPojo(String id, String title, String subTitle, String category, String author, String printYear, String bookNum, String other) {
         this.id = id;
@@ -31,11 +31,12 @@ public class BookPojo {
         this.author = author;
     }
 
-    public BookPojo(String id, String title, String issueDate, String returnDate) {
+    public BookPojo(String id, String title, String subTitle, String numDay) {
         this.id = id;
         this.title = title;
-        this.issueDate = issueDate;
-        this.returnDate = returnDate;
+        this.subTitle = subTitle;
+        this.numDay = numDay;
+
     }
 
     public String getId() {
@@ -102,20 +103,18 @@ public class BookPojo {
         this.other = other;
     }
 
-    public String getIssueDate() {
-        return issueDate;
+    /**
+     * @return the numDay
+     */
+    public String getNumDay() {
+        return numDay;
     }
 
-    public void setIssueDate(String issueDate) {
-        this.issueDate = issueDate;
-    }
-
-    public String getReturnDate() {
-        return returnDate;
-    }
-
-    public void setReturnDate(String returnDate) {
-        this.returnDate = returnDate;
+    /**
+     * @param numDay the numDay to set
+     */
+    public void setNumDay(String numDay) {
+        this.numDay = numDay;
     }
 
 }

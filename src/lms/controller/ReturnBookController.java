@@ -5,6 +5,8 @@
  */
 package lms.controller;
 
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,11 +20,13 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import lms.DbConnection;
 import lms.pojo.BookPojo;
 import lms.pojo.MemberPojo;
@@ -46,17 +50,16 @@ public class ReturnBookController implements Initializable {
     private TableColumn<MemberPojo, String> cGender;
     @FXML
     private TableColumn<MemberPojo, String> cPhone;
-    @FXML
-    private TableColumn<MemberPojo, String> cLate;
 
     @FXML
     private TableColumn<BookPojo, String> cBid;
     @FXML
     private TableColumn<BookPojo, String> cTitle;
     @FXML
-    private TableColumn<BookPojo, String> cIssueDate;
+    private TableColumn<BookPojo, String> cSub;
     @FXML
-    private TableColumn<BookPojo, String> cReturn;
+    private TableColumn<BookPojo, String> cNumDay;
+
     @FXML
     private Button btnReturn;
     @FXML
@@ -67,6 +70,9 @@ public class ReturnBookController implements Initializable {
     private Connection conn = null;
     private PreparedStatement pst = null;
     private ResultSet rs = null;
+    @FXML
+    private ComboBox<String> cboCatBorrow;
+
 
 
     /**
@@ -75,9 +81,12 @@ public class ReturnBookController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         conn = DbConnection.connect();
+        cboCatBorrow.getItems().addAll("មិនទាន់លើស14ថ្ងៃ", "លើស14ថ្ងៃ");
+        cboCatBorrow.getSelectionModel().selectFirst();
         initTable();
-        loadMember();
+        loadMember2();
         getSelectedRowData();
+        typeChange();
     }    
 
     private void initTable() {
@@ -86,15 +95,36 @@ public class ReturnBookController implements Initializable {
         cLatin.setCellValueFactory(new PropertyValueFactory("latin"));
         cGender.setCellValueFactory(new PropertyValueFactory("gender"));
         cPhone.setCellValueFactory(new PropertyValueFactory("phone"));
-        cLate.setCellValueFactory(new PropertyValueFactory("lateReturn"));
 
         cBid.setCellValueFactory(new PropertyValueFactory("id"));
         cTitle.setCellValueFactory(new PropertyValueFactory("title"));
-        cIssueDate.setCellValueFactory(new PropertyValueFactory("issueDate"));
-        cReturn.setCellValueFactory(new PropertyValueFactory("returnDate"));
+        cSub.setCellValueFactory(new PropertyValueFactory("subTitle"));
+        cNumDay.setCellValueFactory(new PropertyValueFactory("numDay"));
     }
     @FXML
     private void clickReturn(MouseEvent event) {
+        Button close = new Button("ទេ");
+        Button ok = new Button("បាទ");
+        close.setStyle("-fx-cursor:hand ; -fx-font-color:red ; -fx-border-color:white; -fx-background-color:white");
+        ok.setStyle("-fx-cursor:hand; -fx-font-color:red ; -fx-border-color:white; -fx-background-color:white ; -fx-text-fill:red");
+        JFXDialogLayout content = new JFXDialogLayout();
+        JFXDialog dialog = new JFXDialog(MainController.stackPane, content, JFXDialog.DialogTransition.CENTER, true);
+        content.setHeading(new Text("សងសៀវភៅ!"));
+        content.setBody(new Text("តើអ្នកពិតជាចង់សងសៀវភៅនេះមែនទេ?"));
+        content.setStyle("-fx-font-size: 15; -fx-font-family: 'Kh System'");
+        content.setActions(close, ok);
+        close.setOnAction(e -> {
+            dialog.close();
+        });
+        ok.setOnAction(e -> {
+            returnBook();
+            dialog.close();
+        });
+        dialog.show();
+
+    }
+
+    private void returnBook() throws NumberFormatException {
         try {
             String sql = "DELETE FROM tb_issue WHERE m_id=? AND b_id=?";
             pst = conn.prepareStatement(sql);
@@ -117,16 +147,51 @@ public class ReturnBookController implements Initializable {
     private void clickClear(MouseEvent event) {
         txtSearchMember.setText("");
         tblBook.getItems().clear();
-        loadMember();
+        btnReturn.setVisible(false);
+        int choise = cboCatBorrow.getSelectionModel().getSelectedIndex();
+        if (choise == 0) {
+            loadMember2();
+        } else {
+            loadMember();
+        }
     }
+
+    /**
+     * Load who have borrowed book more than 14 days.
+     */
     private void loadMember() {
         ObservableList<MemberPojo> memberList = FXCollections.observableArrayList();
-        String sql = "SELECT DISTINCT id,name,latin,gender,phone,(CURRENT_DATE-tb_issue.issue_date ) as late FROM tb_member INNER JOIN tb_issue ON tb_member.id=tb_issue.m_id ORDER BY late DESC LIMIT 200";
+        String sql = "SELECT DISTINCT id,name,latin,gender,phone,issue_date FROM tb_member JOIN tb_issue ON id=m_id WHERE (CURRENT_DATE-issue_date )>14 ORDER BY issue_date ";
         try {
             pst = conn.prepareStatement(sql);
             rs = pst.executeQuery();
             while (rs.next()) {
-                memberList.add(new MemberPojo(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)));
+                memberList.add(new MemberPojo(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));
+            }
+            tblMember.getItems().setAll(memberList);
+        } catch (SQLException ex) {
+            Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                rs.close();
+                pst.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    /**
+     * Load who have borrowed book less than 14 days.
+     */
+    private void loadMember2() {
+        ObservableList<MemberPojo> memberList = FXCollections.observableArrayList();
+        String sql = "SELECT DISTINCT id,name,latin,gender,phone,issue_date FROM tb_member JOIN tb_issue ON id=m_id WHERE (CURRENT_DATE-issue_date )<14 ORDER BY issue_date ";
+        try {
+            pst = conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                memberList.add(new MemberPojo(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));
             }
             tblMember.getItems().setAll(memberList);
         } catch (SQLException ex) {
@@ -147,15 +212,15 @@ public class ReturnBookController implements Initializable {
             return;
         }
         ObservableList<MemberPojo> memberList = FXCollections.observableArrayList();
-        String sql = "SELECT DISTINCT id,name,latin,gender,phone,(CURRENT_DATE-tb_issue.issue_date ) as late FROM tb_member INNER JOIN tb_issue ON id=m_id WHERE name LIKE ? \n"
-                + "UNION SELECT DISTINCT id,name,latin,gender,phone,(CURRENT_DATE-tb_issue.issue_date ) as late FROM tb_member INNER JOIN tb_issue ON id=m_id WHERE latin LIKE ? LIMIT 200";
+        String sql = "SELECT DISTINCT id,name,latin,gender,phone FROM tb_member  JOIN tb_issue ON tb_member.id=tb_issue.m_id WHERE name LIKE ?"
+                + "UNION SELECT DISTINCT id,name,latin,gender,phone FROM tb_member  JOIN tb_issue ON tb_member.id=tb_issue.m_id WHERE latin LIKE ?";
         try {
             pst = conn.prepareStatement(sql);
             pst.setString(1, txtSearchMember.getText().trim() + "%");
             pst.setString(2, txtSearchMember.getText().trim().toUpperCase() + "%");
             rs = pst.executeQuery();
             while (rs.next()) {
-                memberList.add(new MemberPojo(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)));
+                memberList.add(new MemberPojo(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));
             }
             tblMember.getItems().setAll(memberList);
         } catch (SQLException ex) {
@@ -193,7 +258,7 @@ public class ReturnBookController implements Initializable {
      * Load issued book when clicked on member table row
      */
     private void loadBook() throws NumberFormatException {
-        String sql = "SELECT b.b_id, b.title, to_char(i.issue_date,'dd-MM-yyyy'),to_char(i.issue_date+14,'dd-MM-yyyy') FROM tb_book as b INNER JOIN tb_issue as i ON b.b_id=i.b_id WHERE i.m_id=?";
+        String sql = "SELECT b.b_id, b.title, b.sub_title,(CURRENT_DATE-i.issue_date) FROM tb_book as b INNER JOIN tb_issue as i ON b.b_id=i.b_id WHERE i.m_id=?";
         ObservableList<BookPojo> bookList = FXCollections.observableArrayList();
         try {
             pst = conn.prepareStatement(sql);
@@ -213,6 +278,21 @@ public class ReturnBookController implements Initializable {
                 Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+
+    private void typeChange() {
+        cboCatBorrow.setOnAction(e -> {
+            int choise = cboCatBorrow.getSelectionModel().getSelectedIndex();
+            if (choise == 0) {
+                tblBook.getItems().clear();
+                btnReturn.setVisible(false);
+                loadMember2();
+            } else {
+                tblBook.getItems().clear();
+                loadMember();
+                btnReturn.setVisible(false);
+            }
+        });
     }
 
 }

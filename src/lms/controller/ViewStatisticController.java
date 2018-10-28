@@ -22,10 +22,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -52,7 +52,10 @@ public class ViewStatisticController implements Initializable {
     @FXML
     private VBox paneStatistic;
     @FXML
-    private Region paneExport;
+    private Button paneExport2;
+    @FXML
+    private Button paneExport1;
+
 
     /**
      * Initializes the controller class.
@@ -64,6 +67,10 @@ public class ViewStatisticController implements Initializable {
         cboType.getSelectionModel().selectFirst();
         loadMember();
         typeChange();
+        paneStatistic.setPrefHeight(300);
+        paneStatistic.setStyle("-fx-background-color:#b8b09b;-fx-background-radius:10");
+        paneExport1.setStyle("-fx-background-color:#e3c9c9;-fx-border-color:none; -fx-border-radius:10");
+        paneExport2.setStyle("-fx-background-color:#a8e6cf;-fx-border-color:none ; -fx-border-radius:10");
     }
 
     private void loadMember() {
@@ -76,7 +83,7 @@ public class ViewStatisticController implements Initializable {
                 pieChartData.add(new PieChart.Data(rs.getString(1) + "សរុប " + rs.getInt(2) + "នាក់", rs.getInt(2)));
             }
             PieChart chart = new PieChart(pieChartData);
-            chart.setLegendSide(Side.LEFT);
+            chart.setLegendSide(Side.BOTTOM);
             chart.setLabelsVisible(false);
             paneStatistic.getChildren().setAll(chart);
         } catch (SQLException ex) {
@@ -94,18 +101,23 @@ public class ViewStatisticController implements Initializable {
     private void typeChange() {
         cboType.setOnAction(e -> {
             String choise = cboType.getSelectionModel().getSelectedItem();
-
             if (choise.equals("ចំនួនអ្នកចុះឈ្មោះតាមភេទ")) {
-                paneStatistic.setStyle("-fx-background-color:#b8b09b;-fx-background-radius:10");
-                paneExport.setStyle("-fx-background-color:#b8b09b;-fx-background-radius:10");
+                paneStatistic.setPrefHeight(290);
+                paneStatistic.setStyle("-fx-background-color:#ff6f69;-fx-background-radius:10");
+                paneExport1.setStyle("-fx-background-color:#ffeead;-fx-border-color:none; -fx-border-radius:10");
+                paneExport2.setStyle("-fx-background-color: #96ceb4;-fx-border-color:none; -fx-border-radius:10");
                 loadMember();
             } else if (choise.equals("ចំនួនសៀវភៅតាមប្រភេទ")) {
-                paneStatistic.setStyle("-fx-background-color:#4e6376;-fx-background-radius:10");
-                paneExport.setStyle("-fx-background-color:#4e6376;-fx-background-radius:10");
+                paneStatistic.setPrefHeight(Double.MIN_VALUE);
+                paneStatistic.setStyle("-fx-background-color:#88d8b0;-fx-background-radius:10");
+                paneExport1.setStyle("-fx-background-color:#f6cd61;-fx-border-color:none; -fx-border-radius:10");
+                paneExport2.setStyle("-fx-background-color:#e7d3d3;-fx-border-color:none; -fx-border-radius:10");
                 loadBookByCategory();
             } else {
-                paneStatistic.setStyle("-fx-background-color:#84888b;-fx-background-radius:10");
-                paneExport.setStyle("-fx-background-color:#84888b;-fx-background-radius:10");
+                paneStatistic.setPrefHeight(300);
+                paneStatistic.setStyle("-fx-background-color:#84c1ff; -fx-background-radius:10");
+                paneExport1.setStyle("-fx-background-color:#83d0c9;-fx-border-color:none; -fx-border-radius:10");
+                paneExport2.setStyle("-fx-background-color: #feb2a8;-fx-border-color:none; -fx-border-radius:10");
                 loadIssuedBook();
             }
         });
@@ -148,7 +160,7 @@ public class ViewStatisticController implements Initializable {
                 pieChartData.add(new PieChart.Data("សៀវភៅដែលខ្ចីមិនលើស14ថ្ងៃមានចំនួន " + rs.getInt(2) + "ក្បាល", rs.getInt(2)));
             }
             PieChart chart = new PieChart(pieChartData);
-            chart.setLegendSide(Side.RIGHT);
+            chart.setLegendSide(Side.BOTTOM);
             chart.setLabelsVisible(false);
             paneStatistic.getChildren().setAll(chart);
         } catch (SQLException ex) {

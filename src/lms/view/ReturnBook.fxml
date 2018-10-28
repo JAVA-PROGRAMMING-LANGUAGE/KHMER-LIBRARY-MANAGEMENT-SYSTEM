@@ -1,66 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" style="-fx-background-color: white;" stylesheets="@../../resource/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lms.controller.ReturnBookController">
+<AnchorPane id="AnchorPane" prefHeight="518.0" prefWidth="689.0" style="-fx-background-color: white;" stylesheets="@../../resource/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lms.controller.ReturnBookController">
    <children>
-      <TextField fx:id="txtSearchMember" prefWidth="745.0" promptText="ស្វែងរកអ្នកដែលបានខ្ចីសៀវភៅតាមរយៈឈ្មោះ" styleClass="text-search">
+      <ImageView fitHeight="536.0" fitWidth="745.0" opacity="0.65" pickOnBounds="true">
+         <image>
+            <Image url="@../../resource/bg2.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutY="4.0" text="បង្ហាញអ្នកបានខ្ចីសៀវភៅ" />
+      <TextField fx:id="txtSearchMember" layoutX="381.0" layoutY="1.0" prefHeight="33.0" prefWidth="362.0" promptText="ស្វែងរកអ្នកដែលបានខ្ចីសៀវភៅតាមរយៈឈ្មោះ" styleClass="text-search">
          <font>
             <Font name="Kh System" size="15.0" />
          </font>
       </TextField>
       
-      <TableView fx:id="tblMember" layoutY="50.0" prefHeight="180.0" prefWidth="745.0">
+      <TableView fx:id="tblMember" layoutX="1.0" layoutY="45.0" prefHeight="237.0" prefWidth="745.0">
+           <placeholder>
+              <Label text="" />
+          </placeholder>
         <columns>
           <TableColumn fx:id="cMid" prefWidth="75.0" text="លេខសម្គាល់" />
           <TableColumn fx:id="cName" prefWidth="75.0" text="ឈ្មោះ" />
             <TableColumn fx:id="cLatin" prefWidth="75.0" text="ជាអក្សរឡាតាំង" />
             <TableColumn fx:id="cGender" prefWidth="75.0" text="ភេទ" />
             <TableColumn fx:id="cPhone" prefWidth="75.0" text="លេខទូរស័ព្ទ" />
-            <TableColumn fx:id="cLate" prefWidth="75.0" text="ចំនួនថ្ងៃបានខ្ចី" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <MaterialIconView fill="RED" glyphName="CLOSE" layoutX="715.0" layoutY="28.0" onMouseClicked="#clickClear" size="25">
+      <MaterialIconView fill="#818181" glyphName="REPLAY" layoutX="712.0" layoutY="28.0" onMouseClicked="#clickClear" size="24">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </MaterialIconView>
-      <TableView fx:id="tblBook" layoutY="280.0" prefHeight="180.0" prefWidth="745.0">
+      <TableView fx:id="tblBook" layoutX="1.0" layoutY="355.0" prefHeight="121.0" prefWidth="745.0">
+           <placeholder>
+              <Label text="" />
+          </placeholder>
          <columns>
             <TableColumn fx:id="cBid" prefWidth="75.0" text="កូដ/ISBN" />
             <TableColumn fx:id="cTitle" prefWidth="75.0" text="ចំណងជើង" />
-            <TableColumn fx:id="cIssueDate" prefWidth="75.0" text="កាលបរិច្ឆេទខ្ចី" />
-            <TableColumn fx:id="cReturn" prefWidth="75.0" text="កាលបរិច្ឆេទត្រូវសង" />
+            <TableColumn fx:id="cSub" prefWidth="75.0" text="ចំណងជើងរង" />
+            <TableColumn fx:id="cNumDay" prefWidth="75.0" text="ចំនួនថ្ងៃបានខ្ចី" />
          </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button fx:id="btnReturn" alignment="CENTER" layoutX="670.0" layoutY="480.0" mnemonicParsing="false" onMouseClicked="#clickReturn" prefHeight="33.0" prefWidth="75.0" text="សង" visible="false">
+      <Button fx:id="btnReturn" alignment="CENTER" layoutX="671.0" layoutY="503.0" mnemonicParsing="false" onMouseClicked="#clickReturn" prefHeight="33.0" prefWidth="75.0" text="សង" visible="false">
          <font>
             <Font name="Kh System" size="14.0" />
          </font>
       </Button>
-      <Label layoutY="240.0" text="បញ្ជីសៀវភៅដែលបានខ្ចី">
+      <Label alignment="CENTER" layoutX="189.0" layoutY="312.0" prefHeight="35.0" prefWidth="369.0" style="-fx-background-color: orange; -fx-text-fill: white; -fx-background-radius: 20;" text="បញ្ជីសៀវភៅដែលបានខ្ចី">
          <font>
             <Font name="Kh System" size="14.0" />
          </font>
       </Label>
-      <MaterialIconView fill="#909090" glyphName="SEARCH" layoutX="6.0" layoutY="28.0" onMouseClicked="#clickSearch" size="25">
+      <MaterialIconView fill="#909090" glyphName="SEARCH" layoutX="387.0" layoutY="31.0" onMouseClicked="#clickSearch" size="25">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </MaterialIconView>
+      <ComboBox fx:id="cboCatBorrow" layoutX="165.0" layoutY="1.0" prefHeight="33.0" prefWidth="198.0">
+         <padding>
+            <Insets bottom="-5.0" top="-5.0" />
+         </padding>
+      </ComboBox>
    </children>
 </AnchorPane>

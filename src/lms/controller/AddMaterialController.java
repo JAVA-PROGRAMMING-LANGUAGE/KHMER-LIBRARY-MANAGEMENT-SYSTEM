@@ -91,7 +91,7 @@ public class AddMaterialController implements Initializable {
     }
 
     private void loadMaterial() {
-        String sql = "SELECT * FROM tb_material ORDER BY name  LIMIT 50";
+        String sql = "SELECT * FROM tb_material ORDER BY name";
         ObservableList<MaterialPojo> materialList = FXCollections.observableArrayList();
         try {
             pst = conn.prepareStatement(sql);
@@ -168,7 +168,7 @@ public class AddMaterialController implements Initializable {
         JFXDialogLayout content = new JFXDialogLayout();
         JFXDialog dialog = new JFXDialog(MainController.stackPane, content, JFXDialog.DialogTransition.CENTER, true);
         content.setHeading(new Text("កែប្រែសម្ភារ!"));
-        content.setBody(new Text("តើអ្នកពិតជាចង់កែប្រែសម្ភារនេះមែនទេ?"));
+        content.setBody(new Text("តើអ្នកពិតជាចង់កែប្រែមែនទេ?"));
         content.setStyle("-fx-font-size: 15; -fx-font-family: 'Kh System'");
         content.setActions(close, ok);
         close.setOnAction(e -> {
@@ -246,7 +246,7 @@ public class AddMaterialController implements Initializable {
             JFXDialogLayout content = new JFXDialogLayout();
             JFXDialog dialog = new JFXDialog(MainController.stackPane, content, JFXDialog.DialogTransition.CENTER, true);
             content.setHeading(new Text("លុបសម្ភារ!"));
-            content.setBody(new Text("តើអ្នកពិតជាចង់លុបសម្ភារនេះមែនទេ?"));
+            content.setBody(new Text("តើអ្នកពិតជាចង់លុបមែនទេ?"));
             content.setStyle("-fx-font-size: 15; -fx-font-family: 'Kh System'");
             content.setActions(close, ok);
             close.setOnAction(e -> {

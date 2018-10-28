@@ -46,10 +46,6 @@ public class AddBookController implements Initializable {
     @FXML
     private Button btnSave;
     @FXML
-    private Button btnNew;
-    @FXML
-    private Button btnDelete;
-    @FXML
     private TableView<BookPojo> tblBook;
     @FXML
     private TableColumn<BookPojo, String> cId;
@@ -94,10 +90,10 @@ public class AddBookController implements Initializable {
         btnSave.setVisible(false);
         conn = DbConnection.connect();
         initTable();
-        loadCategory();
-        loadBook();
         unfocusId();
         getSelectedRowData();
+        loadCategory();
+        loadBook();
     }    
     
     private void initTable() {
@@ -135,7 +131,7 @@ public class AddBookController implements Initializable {
     }
 
     private void loadBook() {
-        String sql = "SELECT * FROM tb_book ORDER BY b_id  DESC LIMIT 50";
+        String sql = "SELECT * FROM tb_book LIMIT 50";
         ObservableList<BookPojo> book = FXCollections.observableArrayList();
         try {
             pst = conn.prepareStatement(sql);
@@ -179,7 +175,7 @@ public class AddBookController implements Initializable {
                 showUpdateDialog("កែប្រែទិន្នន័យសៀវភៅ!", "តើអ្នកពិតជាចង់កែប្រែមែនទេ?");
             }
         } else {
-            new MyDialog().showInfoDialog("ការរក្សាទុកមិនបានជោគជ័យ!", "កូដ/ISBN ចំណងជើង ប្រភេទ និងចំនួនសៀវភៅ(ចំនួនគត់)មិនអាចទទេ។");
+            new MyDialog().showInfoDialog("មិនបានជោគជ័យ!", "កូដ/ISBN ចំណងជើង ប្រភេទ និងចំនួនសៀវភៅ(ចំនួនគត់)មិនអាចទទេ។");
         }
     }
 
@@ -187,7 +183,7 @@ public class AddBookController implements Initializable {
         try {
             String sql = "INSERT INTO tb_book(b_id, title, sub_title, category, author, print_year, num_book, other) values(?,?,?,?,?,?,?,?)";
             pst = conn.prepareStatement(sql);
-            pst.setString(1, txtId.getText().trim());
+            pst.setString(1, txtId.getText().toUpperCase().trim());
             pst.setString(2, txtTitle.getText().trim().toUpperCase());
             pst.setString(3, txtSubTitle.getText().trim());
             pst.setString(4, cboCategory.getSelectionModel().getSelectedItem());
@@ -220,7 +216,7 @@ public class AddBookController implements Initializable {
             pst.setString(5, txtPrintYear.getText().trim());
             pst.setInt(6, Integer.parseInt(txtNumBook.getText().trim()));
             pst.setString(7, txtOther.getText().trim());
-            pst.setString(8, txtId.getText().trim());
+            pst.setString(8, txtId.getText().toUpperCase().trim());
             pst.executeUpdate();
             clearInput();
             loadBook();
@@ -274,6 +270,7 @@ public class AddBookController implements Initializable {
         btnSave.setVisible(false);
         tblBook.getSelectionModel().clearSelection();
     }
+
     private void unfocusId() {
         txtId.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {
@@ -284,7 +281,7 @@ public class AddBookController implements Initializable {
                 ObservableList<BookPojo> book = FXCollections.observableArrayList();
                 try {
                     pst = conn.prepareStatement(sql);
-                    pst.setString(1, txtId.getText().trim());
+                    pst.setString(1, txtId.getText().toUpperCase().trim());
                     rs = pst.executeQuery();
                     while (rs.next()) {
                         txtTitle.setText(rs.getString(2));
@@ -425,7 +422,7 @@ public class AddBookController implements Initializable {
         if (!txtSearch.getText().isEmpty()) {
             ObservableList<BookPojo> bookList = FXCollections.observableArrayList();
             String sql = "SELECT * FROM tb_book WHERE b_id LIKE ?"
-                    + "UNION SELECT * FROM tb_book WHERE title LIKE ? ORDER BY title  LIMIT 200";
+                    + "UNION SELECT * FROM tb_book WHERE title LIKE ? ORDER BY title  LIMIT 100";
             try {
                 pst = conn.prepareStatement(sql);
                 pst.setString(1, txtSearch.getText().trim());

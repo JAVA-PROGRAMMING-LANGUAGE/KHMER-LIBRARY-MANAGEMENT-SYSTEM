@@ -7,13 +7,15 @@ package lms.controller;
 
 import animatefx.animation.BounceIn;
 import animatefx.animation.JackInTheBox;
-import animatefx.animation.LightSpeedIn;
+import animatefx.animation.Pulse;
 import animatefx.animation.RollIn;
 import animatefx.animation.RubberBand;
 import animatefx.animation.Shake;
 import animatefx.animation.Swing;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
+import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -80,6 +82,11 @@ public class MainController implements Initializable {
     private Connection conn = null;
     private PreparedStatement pst = null;
     private ResultSet rs = null;
+    @FXML
+    private Button btnHelp;
+    @FXML
+    private VBox vbHelp;
+
 
     //private AnchorPane mainPane;
     /**
@@ -122,6 +129,7 @@ public class MainController implements Initializable {
             AnchorPane about = FXMLLoader.load(getClass().getResource("/lms/view/about.fxml"));
             vbAbout.getChildren().add(about);
 
+
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -135,6 +143,7 @@ public class MainController implements Initializable {
         vbMaterial.setVisible(false);
         vbStatistic.setVisible(false);
         vbAbout.setVisible(false);
+        vbHelp.setVisible(false);
     }
 
     private void clickMenu() {
@@ -160,7 +169,7 @@ public class MainController implements Initializable {
         btnAddBook.setOnAction((e)->{
             hidePane();
             vbAddBook.setVisible(true);
-            new LightSpeedIn(vbAddBook).play();
+            new Pulse(vbAddBook).play();
         });
         
         btnMaterial.setOnAction((e)->{
@@ -179,6 +188,15 @@ public class MainController implements Initializable {
             vbAbout.setVisible(true);
             new Swing(vbAbout).play();
         });
+        btnHelp.setOnAction((e) -> {
+            try {
+                File file = new File("help.html");
+                Desktop.getDesktop().open(file);
+            } catch (Exception ex) {
+                new MyDialog().showInfoDialog("មានបញ្ហា!", ex.getMessage());
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
     }
 
     @FXML
@@ -191,16 +209,16 @@ public class MainController implements Initializable {
     private void clickAccount(MouseEvent event) {
         Button close = new Button("បោះបង់");
         Button ok = new Button("ប្ដូរ");
-        close.setStyle("-fx-cursor:hand ; -fx-font-color:red ; -fx-border-color:white; -fx-background-color:white");
-        ok.setStyle("-fx-cursor:hand; -fx-font-color:red ; -fx-border-color:white; -fx-background-color:white ; -fx-text-fill:red");
+        close.setStyle("-fx-cursor:hand ; -fx-border-color:white; -fx-background-color:white");
+        ok.setStyle("-fx-cursor:hand; -fx-border-color:white; -fx-background-color:white ; -fx-text-fill:red");
         JFXDialogLayout content = new JFXDialogLayout();
         JFXDialog dialog = new JFXDialog(MainController.stackPane, content, JFXDialog.DialogTransition.TOP, false);
 
         content.setHeading(new Text("ប្ដូរពាក្យសម្ងាត់!"));
         PasswordField txtOldPass = new PasswordField();
-        txtOldPass.setPromptText("វាយពាក្យសម្ងាត់បច្ចុប្បន្ន");
+        txtOldPass.setPromptText("សូមវាយពាក្យសម្ងាត់បច្ចុប្បន្ន");
         PasswordField txtNewPass = new PasswordField();
-        txtNewPass.setPromptText("វាយពាក្យសម្ងាត់ថ្មី");
+        txtNewPass.setPromptText("សូមវាយពាក្យសម្ងាត់ថ្មី");
         
         VBox vb = new VBox();
         vb.getChildren().setAll(txtOldPass, txtNewPass);
@@ -221,11 +239,11 @@ public class MainController implements Initializable {
                 if (!rs.next()) {
                     new MyDialog().showInfoDialog("ប្ដូរពាក្យសម្ងាត់!", "ពាក្យសម្ងាត់បច្ចុប្បន្នមិនត្រឹមត្រូវ។");
                     return;
-                } else if (txtNewPass.getText().trim().toCharArray().length < 4) {
+                } else if (txtNewPass.getText().toCharArray().length < 4) {
                     new MyDialog().showInfoDialog("ប្ដូរពាក្យសម្ងាត់!", "ពាក្យសម្ងាត់ថ្មីត្រូវមានចាប់ពី៤តួឡើងទៅ។");
                     return;
                 } else {
-                    updatePwd(txtNewPass.getText().trim());
+                    updatePwd(txtNewPass.getText());
                 }
 
             } catch (SQLException ex) {
