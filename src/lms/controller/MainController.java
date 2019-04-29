@@ -212,7 +212,7 @@ public class MainController implements Initializable {
         close.setStyle("-fx-cursor:hand ; -fx-border-color:white; -fx-background-color:white");
         ok.setStyle("-fx-cursor:hand; -fx-border-color:white; -fx-background-color:white ; -fx-text-fill:red");
         JFXDialogLayout content = new JFXDialogLayout();
-        JFXDialog dialog = new JFXDialog(MainController.stackPane, content, JFXDialog.DialogTransition.TOP, false);
+        JFXDialog dialog = new JFXDialog(MainController.stackPane, content, JFXDialog.DialogTransition.TOP, true);
 
         content.setHeading(new Text("ប្ដូរពាក្យសម្ងាត់!"));
         PasswordField txtOldPass = new PasswordField();
@@ -278,6 +278,68 @@ public class MainController implements Initializable {
                 Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+
+    @FXML
+    private void clickChangePwd(MouseEvent event) {
+        Button close = new Button("បោះបង់");
+        Button ok = new Button("ប្ដូរ");
+        close.setStyle("-fx-cursor:hand ; -fx-border-color:white; -fx-background-color:white");
+        ok.setStyle("-fx-cursor:hand; -fx-border-color:white; -fx-background-color:white ; -fx-text-fill:red");
+        JFXDialogLayout content = new JFXDialogLayout();
+        JFXDialog dialog = new JFXDialog(MainController.stackPane, content, JFXDialog.DialogTransition.TOP, true);
+
+        content.setHeading(new Text("ប្ដូរពាក្យសម្ងាត់!"));
+        PasswordField txtOldPass = new PasswordField();
+        txtOldPass.setPromptText("សូមវាយពាក្យសម្ងាត់បច្ចុប្បន្ន");
+        PasswordField txtNewPass = new PasswordField();
+        txtNewPass.setPromptText("សូមវាយពាក្យសម្ងាត់ថ្មី");
+
+        VBox vb = new VBox();
+        vb.getChildren().setAll(txtOldPass, txtNewPass);
+
+        content.setBody(vb);
+        content.setStyle("-fx-font-size: 15; -fx-font-family: 'Kh System'");
+        content.setActions(close, ok);
+        close.setOnAction(e -> {
+            dialog.close();
+        });
+        ok.setOnAction(e -> {
+            String sql = "SELECT * FROM tb_pwd WHERE pwd=?";
+            try {
+                pst = conn.prepareStatement(sql);
+                pst.setString(1, txtOldPass.getText());
+                rs = pst.executeQuery();
+
+                if (!rs.next()) {
+                    new MyDialog().showInfoDialog("ប្ដូរពាក្យសម្ងាត់!", "ពាក្យសម្ងាត់បច្ចុប្បន្នមិនត្រឹមត្រូវ។");
+                    return;
+                } else if (txtNewPass.getText().toCharArray().length < 4) {
+                    new MyDialog().showInfoDialog("ប្ដូរពាក្យសម្ងាត់!", "ពាក្យសម្ងាត់ថ្មីត្រូវមានចាប់ពី៤តួឡើងទៅ។");
+                    return;
+                } else {
+                    updatePwd(txtNewPass.getText());
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                try {
+                    rs.close();
+                    pst.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            dialog.close();
+        });
+        dialog.show();
+    }
+
+    @FXML
+    private void clickQuit(MouseEvent event) {
+        Platform.exit();
     }
 
 }

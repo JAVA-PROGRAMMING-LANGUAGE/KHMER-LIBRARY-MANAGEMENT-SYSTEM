@@ -37,6 +37,11 @@
                               <MaterialIconView fill="#616161" glyphName="VIEW_LIST" size="25" />
                            </graphic>
                         </Label>
+                        <Separator opacity="0.5" prefWidth="200.0">
+                           <padding>
+                              <Insets left="122.0" right="55.0" />
+                           </padding>
+                        </Separator>
                         <Button fx:id="btnRegisterMember" alignment="TOP_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="336.0" style="-fx-border-color: white; -fx-background-color: white;" text="ចុះឈ្មោះអ្នកខ្ចីសៀវភៅ" textFill="#616161">
                            <graphic>
                               <MaterialIconView fill="#2f475bc7" glyphName="PERSON_ADD" size="25" />
@@ -173,12 +178,12 @@
                               <Insets left="122.0" right="55.0" />
                            </padding>
                         </Separator>
-                        <Button fx:id="btnAbout" alignment="TOP_LEFT" graphicTextGap="10.0" layoutX="10.0" layoutY="275.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="336.0" style="-fx-border-color: white; -fx-background-color: white;" text="អំពីកម្មវិធី" textFill="#616161">
+                        <Button alignment="TOP_LEFT" graphicTextGap="10.0" layoutX="10.0" layoutY="329.0" mnemonicParsing="false" onMouseClicked="#clickChangePwd" prefHeight="40.0" prefWidth="336.0" style="-fx-border-color: white; -fx-background-color: white;" text="ប្ដូរពាក្យសម្ងាត់" textFill="#616161">
                            <font>
                               <Font name="Kh System" size="16.0" />
                            </font>
                            <graphic>
-                              <MaterialIconView fill="#f22e2e" glyphName="INFO" size="25" />
+                              <MaterialIconView fill="#0d4d4c" glyphName="LOCK" size="25" />
                            </graphic>
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -188,6 +193,44 @@
                            </padding>
                         </Button>
                         <Separator layoutX="10.0" layoutY="365.0" opacity="0.5" prefWidth="200.0">
+                           <padding>
+                              <Insets left="122.0" right="55.0" />
+                           </padding>
+                        </Separator>
+                        <Button fx:id="btnAbout" alignment="TOP_LEFT" graphicTextGap="10.0" layoutX="10.0" layoutY="275.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="336.0" style="-fx-border-color: white; -fx-background-color: white;" text="អំពីកម្មវិធី" textFill="#616161">
+                           <font>
+                              <Font name="Kh System" size="16.0" />
+                           </font>
+                           <graphic>
+                              <MaterialIconView fill="#f26703" glyphName="INFO" size="25" />
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <padding>
+                              <Insets left="80.0" />
+                           </padding>
+                        </Button>
+                        <Separator opacity="0.5" prefWidth="200.0">
+                           <padding>
+                              <Insets left="122.0" right="55.0" />
+                           </padding>
+                        </Separator>
+                        <Button alignment="TOP_LEFT" graphicTextGap="10.0" layoutX="10.0" layoutY="338.0" mnemonicParsing="false" onMouseClicked="#clickQuit" prefHeight="40.0" prefWidth="336.0" style="-fx-border-color: white; -fx-background-color: white;" text="បិទកម្មវិធី" textFill="#616161">
+                           <font>
+                              <Font name="Kh System" size="16.0" />
+                           </font>
+                           <graphic>
+                              <MaterialIconView fill="#bf1521" glyphName="POWER_SETTINGS_NEW" size="25" />
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <padding>
+                              <Insets left="80.0" />
+                           </padding>
+                        </Button>
+                        <Separator opacity="0.5" prefWidth="200.0">
                            <padding>
                               <Insets left="122.0" right="55.0" />
                            </padding>
